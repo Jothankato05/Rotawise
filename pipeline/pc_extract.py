@@ -199,6 +199,8 @@ def _files(model: str, scen: str, var: str) -> dict[int, str]:
             m = re.search(r"_(\d{4})(?:_v[\d.]+)?\.nc$", n)
             if m:
                 files[int(m.group(1))] = n
+        if not files:
+            raise RuntimeError(f"empty THREDDS catalog for {key}")
         _cat_cache[key] = files
     return _cat_cache[key]
 
@@ -214,6 +216,10 @@ def _season(model: str, scen: str, var: str, year: int, lat: float, lon: float) 
 
 def cmip6(lat: float, lon: float, workers: int) -> dict:
     tasks = [(m, k, s, y, v) for m in MODELS for k, (s, ys) in PERIODS.items() for y in ys for v in ("pr", "tasmax")]
+    for m in MODELS:  # fill the catalog cache sequentially to avoid racing threads
+        for _, (s, _) in PERIODS.items():
+            for v in ("pr", "tasmax"):
+                _files(m, s, v)
     with cf.ThreadPoolExecutor(min(workers, 8)) as ex:
         res = list(ex.map(lambda t: (t, _safe(_season, t[0], t[2], t[4], t[3], lat, lon)), tasks))
     out: dict = {"models": MODELS, "source": "NASA NEX-GDDP-CMIP6 via NCCS THREDDS, May to October"}
