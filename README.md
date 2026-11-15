@@ -84,8 +84,12 @@ Next steps for scale: move the rate limiter to Redis or the API gateway, put the
 
 ## Team
 
-Jothan Kato (lead), Adamilo Aaron Daniel, Umar Faruq Oladoja, Miracle Mathew, Sadiq Bashir Abdullahi.
+Jothan Kato (lead), Adamilo Aaron Daniel, Umar Faruq Oladoja, Miracle Mathew, Sadiq Bashir Abdullahi, Ndazibari Charles Joshua.
 
 ## References
 
 See `data/coefficients.yaml` (`sources`) for every agronomic figure, and `docs/SUBMISSION.md` for the full reference list used in the NASA submission.
+
+## Use of AI tools
+
+Parts of the code, dashboard, slides and documentation were drafted with Claude (Anthropic) as a coding assistant, then reviewed, tested and edited by the team, as declared in our Space Apps submission. No generated content uses NASA branding.
