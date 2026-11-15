@@ -1,0 +1,8 @@
+-r requirements.txt
+earthengine-api==1.4.3
+# Planetary Computer route (no Earth Engine account needed)
+pystac-client==0.8.5
+planetary-computer==1.0.0
+rasterio==1.4.3
+numpy==2.2.1
+pyproj==3.7.0

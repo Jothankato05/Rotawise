@@ -1,0 +1,142 @@
+# Rotawise agronomy and model coefficients.
+# Every number that drives a recommendation lives here, next to its source.
+# Change a value here, not in code. Ranges are kept as [low, high] so the
+# engine can report uncertainty instead of a single falsely precise number.
+
+version: "1.0.0"
+
+# ---------------------------------------------------------------------------
+# Phenology classifier thresholds (NDVI, plot mean, cloud masked).
+# Heuristic starting values for Nigerian savanna smallholder plots.
+# They MUST be calibrated against labelled points with pipeline/validate.py
+# and the resulting accuracy reported in the submission.
+# ---------------------------------------------------------------------------
+phenology:
+  season_start_month: 4      # April
+  season_end_month: 12       # December
+  min_observations: 5        # fewer clear observations -> "unknown"
+  bare_max_amplitude: 0.15   # NDVI rise above baseline below this -> bare/fallow
+  bare_max_peak: 0.35
+  cereal_min_peak: 0.55
+  cereal_min_length_days: 90
+  green_threshold_fraction: 0.3   # green period = NDVI above baseline + 30% of amplitude
+  max_confidence: 0.85            # never claim more than this from phenology alone
+
+# ---------------------------------------------------------------------------
+# Agro-ecological zone by latitude (simplified for Nigeria).
+# ---------------------------------------------------------------------------
+zones:
+  - name: sudan_savanna
+    min_lat: 12.0
+    label: "Sudan savanna (drier north)"
+  - name: northern_guinea_savanna
+    min_lat: 9.0
+    label: "Northern Guinea savanna"
+  - name: southern_guinea_savanna
+    min_lat: 0.0
+    label: "Southern Guinea savanna"
+
+# ---------------------------------------------------------------------------
+# Soil interpretation thresholds for iSDAsoil 0-20 cm layer.
+# General agronomic interpretation ranges; to be confirmed with an agronomist.
+# ---------------------------------------------------------------------------
+soil:
+  organic_carbon_low_g_kg: 10.0
+  nitrogen_total_low_g_kg: 1.0
+  phosphorus_low_ppm: 10.0
+  ph_ok_range: [5.5, 7.0]
+  fatigue_weights:
+    cereal_run: 0.35
+    productivity_trend: 0.25
+    organic_carbon: 0.15
+    nitrogen: 0.15
+    ph: 0.10
+
+# ---------------------------------------------------------------------------
+# Crops. water_need_mm: seasonal crop water need, FAO guidance ranges.
+# n_credit_kg_ha: nitrogen fertilizer replacement value to the following
+# cereal, by zone. striga_reduction: fraction of Striga infestation reduction.
+# maize_yield_gain_after: relative gain of the following maize crop.
+# ---------------------------------------------------------------------------
+crops:
+  maize:
+    label: { en: "Maize", ha: "Masara" }
+    type: cereal
+    water_need_mm: [500, 800]
+    heat_sensitive: true
+    n_credit_kg_ha: { sudan_savanna: [0, 0], northern_guinea_savanna: [0, 0], southern_guinea_savanna: [0, 0] }
+    striga_reduction: [0.0, 0.0]
+    maize_yield_gain_after: [0.0, 0.0]
+    sources: [fao_crop_water]
+  sorghum:
+    label: { en: "Sorghum", ha: "Dawa" }
+    type: cereal
+    water_need_mm: [450, 650]
+    heat_sensitive: false
+    n_credit_kg_ha: { sudan_savanna: [0, 0], northern_guinea_savanna: [0, 0], southern_guinea_savanna: [0, 0] }
+    striga_reduction: [0.0, 0.0]
+    maize_yield_gain_after: [0.0, 0.0]
+    sources: [fao_crop_water]
+  soybean:
+    label: { en: "Soybean", ha: "Waken suya" }
+    type: legume
+    water_need_mm: [450, 700]
+    heat_sensitive: false
+    n_credit_kg_ha: { sudan_savanna: [6, 14], northern_guinea_savanna: [14, 55], southern_guinea_savanna: [14, 55] }
+    striga_reduction: [0.35, 0.76]
+    maize_yield_gain_after: [0.49, 0.68]
+    sources: [nfrv_2008, nfrv_1999_dry, kureh_2006, yusuf_2009, fao_crop_water]
+  cowpea:
+    label: { en: "Cowpea", ha: "Wake" }
+    type: legume
+    water_need_mm: [300, 500]
+    heat_sensitive: false
+    n_credit_kg_ha: { sudan_savanna: [6, 10], northern_guinea_savanna: [10, 14], southern_guinea_savanna: [10, 14] }
+    striga_reduction: [0.20, 0.50]
+    maize_yield_gain_after: [0.30, 0.49]
+    sources: [nfrv_2008, nfrv_1999_dry, kureh_2006, yusuf_2009, fao_crop_water]
+  groundnut:
+    label: { en: "Groundnut", ha: "Gyada" }
+    type: legume
+    water_need_mm: [500, 700]
+    heat_sensitive: false
+    n_credit_kg_ha: { sudan_savanna: [6, 14], northern_guinea_savanna: [10, 20], southern_guinea_savanna: [10, 20] }
+    striga_reduction: [0.20, 0.50]
+    maize_yield_gain_after: [0.30, 0.41]
+    sources: [nfrv_1999_dry, farmer_trials_ng, fao_crop_water]
+
+# Candidate rotations compared for every plot (the farmer's current
+# rotation is always added in front of these).
+rotations:
+  - id: maize_soybean
+    sequence: [maize, soybean]
+  - id: maize_cowpea
+    sequence: [maize, cowpea]
+  - id: maize_groundnut
+    sequence: [maize, groundnut]
+  - id: sorghum_cowpea
+    sequence: [sorghum, cowpea]
+
+# ---------------------------------------------------------------------------
+# Economics defaults. ALL editable by the user in the dashboard and API.
+# ---------------------------------------------------------------------------
+economics:
+  urea_n_fraction: 0.46
+  urea_bag_kg: 50
+  urea_price_ngn_per_bag: 50000      # set from a current market check
+  maize_bag_kg: 100
+  maize_price_ngn_per_bag: 40000     # set from a current market check
+  baseline_maize_yield_t_ha: 1.8     # Guinea savanna mean is below 2 t/ha
+
+climate:
+  heat_day_threshold_c: 35.0
+  rain_deficit_warning_fraction: 0.9   # projected rain below 90% of crop min need
+
+sources:
+  nfrv_2008: "Nitrogen fertilizer replacement value of legumes in the Guinea savanna, Nigerian Journal of Soil and Environmental Research (2008): soybean 55, Centrosema 34, cowpea 10 kg N/ha with residues incorporated."
+  nfrv_1999_dry: "Legume rotation N contribution in the drier savanna (1999): 14 kg N/ha at Kaduna, 6 at Bauchi; rotation reduces fertilizer N need only slightly in drier zones."
+  kureh_2006: "Kureh, Kamara and Tarfa (2006), on-farm trials 2001 to 2003, northern Guinea savanna: legume rotation reduced Striga infestation 35% after one year and 76% after two."
+  yusuf_2009: "Yusuf et al. (2009), Agriculture, Ecosystems and Environment: maize yield +68% after soybean and +49% after cowpea vs continuous maize, northern Guinea savanna alfisol."
+  farmer_trials_ng: "Northern Nigeria farmer-field trials: maize after pigeon pea, groundnut and cowpea out-yielded farmer practice by 42.5%, 41.5% and 31.5%."
+  heliyon_2022: "Heliyon (2022), N and P trials at Iburu and Zaria: mean maize grain yield in the Guinea savanna is below 2 t/ha."
+  fao_crop_water: "FAO Irrigation Water Management, Training Manual 3: indicative seasonal crop water needs (cowpea approximated from the beans range)."

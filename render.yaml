@@ -1,0 +1,15 @@
+# One-click deploy on Render (free tier works for the demo).
+services:
+  - type: web
+    name: rotawise
+    runtime: docker
+    plan: free
+    healthCheckPath: /api/v1/health
+    autoDeploy: true
+    envVars:
+      - key: TRUST_PROXY
+        value: "1"
+      - key: RATE_LIMIT_PER_MIN
+        value: "120"
+      - key: USSD_CALLBACK_TOKEN
+        generateValue: true

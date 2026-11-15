@@ -1,0 +1,10 @@
+{
+  "_note": "Pilot plots. Coordinates are approximate LGA locations. Before running the pipeline, replace each with the centre of a real cultivated field (check in Google Earth Engine or Google Maps satellite view) and set coords_verified to true.",
+  "plots": [
+    { "id": "101", "name": "Zaria pilot farm", "lga": "Zaria", "state": "Kaduna", "lat": 11.085, "lon": 7.710, "area_ha": 0.5, "coords_verified": false },
+    { "id": "102", "name": "Dawakin Tofa pilot farm", "lga": "Dawakin Tofa", "state": "Kano", "lat": 12.100, "lon": 8.340, "area_ha": 0.5, "coords_verified": false },
+    { "id": "103", "name": "Bida pilot farm", "lga": "Bida", "state": "Niger", "lat": 9.080, "lon": 6.010, "area_ha": 0.5, "coords_verified": false },
+    { "id": "104", "name": "Bokkos pilot farm", "lga": "Bokkos", "state": "Plateau", "lat": 9.300, "lon": 8.980, "area_ha": 0.5, "coords_verified": false },
+    { "id": "105", "name": "Gwagwalada pilot farm", "lga": "Gwagwalada", "state": "FCT", "lat": 8.940, "lon": 7.080, "area_ha": 0.5, "coords_verified": false }
+  ]
+}
