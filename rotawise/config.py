@@ -14,6 +14,8 @@ from typing import Any
 
 import yaml
 
+from rotawise.compact import parse
+
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = Path(os.environ.get("ROTAWISE_DATA_DIR", ROOT / "data"))
 WEB_DIR = Path(os.environ.get("ROTAWISE_WEB_DIR", ROOT / "web"))
@@ -44,10 +46,14 @@ def load_plot_observations(plot_id: str) -> dict[str, Any] | None:
     if plot_meta(plot_id) is None:
         return None
     path = DATA_DIR / "plots" / f"{plot_id}.json"
-    if not path.is_file():
-        return None
-    with open(path, encoding="utf-8") as fh:
-        return json.load(fh)
+    if path.is_file():
+        with open(path, encoding="utf-8") as fh:
+            return json.load(fh)
+    packed = DATA_DIR / "plots" / f"{plot_id}.txt"
+    if packed.is_file():
+        rows = parse(packed.read_text(encoding="utf-8"))
+        return rows[0] if rows else None
+    return None
 
 
 def load_validation() -> dict[str, Any] | None:

@@ -58,10 +58,13 @@
       "name": "Gwagwalada pilot farm",
       "lga": "Gwagwalada",
       "state": "FCT",
-      "lat": 8.94,
-      "lon": 7.08,
+      "lat": 8.93779,
+      "lon": 7.07221,
       "area_ha": 0.5,
-      "coords_verified": false
+      "coords_verified": true,
+      "lga_lat": 8.94,
+      "lga_lon": 7.08,
+      "coords_source": "ESA WorldCover cropland block (98% cropland), 0.98 km from the LGA reference point"
     }
   ]
 }

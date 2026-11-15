@@ -754,9 +754,9 @@
   }
  },
  "soil": {
-  "organic_carbon_g_kg": null,
-  "nitrogen_total_g_kg": null,
-  "ph": null,
+  "organic_carbon_g_kg": 6.35,
+  "nitrogen_total_g_kg": 0.425,
+  "ph": 5.92,
   "phosphorus_ppm": null,
   "depth": "0-30 cm, depth-weighted"
  },
