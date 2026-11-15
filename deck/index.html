@@ -4,393 +4,43 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rotawise · NASA Space Apps 2026</title>
-<meta name="description" content="Rotawise: field memory from NASA satellites. Crop rotation advice for Nigerian smallholder farms, on any phone.">
+<meta name="description" content="Rotawise: field memory from NASA satellites. Crop rotation advice for Nigerian smallholder farms, on any phone. Team Rotawise, NASA Space Apps Challenge 2026, Abuja.">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Jost:wght@300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
-/* ===========================================
-   FIXED 16:9 STAGE: MANDATORY BASE STYLES
-   (frontend-slides viewport-base.css, included in full)
-   =========================================== */
-html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: var(--stage-bg, #000); }
-.deck-viewport { position: fixed; inset: 0; overflow: hidden; background: var(--stage-bg, #000); }
-.deck-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: hidden; transform-origin: 0 0; background: var(--slide-bg, #fff); }
-.slide { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; display: block; visibility: hidden; opacity: 0; pointer-events: none; background: var(--slide-bg, #fff); }
-.slide.active, .slide.visible { visibility: visible; opacity: 1; pointer-events: auto; z-index: 1; }
-img, video, canvas, svg { max-width: 100%; max-height: 100%; }
-.deck-controls { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 1000; }
-@media print {
-  html, body { width: 1920px; height: auto; overflow: visible; background: #fff; }
-  .deck-viewport { position: static; overflow: visible; background: #fff; }
-  .deck-stage { position: static; width: auto; height: auto; transform: none !important; background: none; }
-  .slide { position: relative; display: block !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; width: 1920px; height: 1080px; break-after: page; page-break-after: always; }
-  .slide:last-child { break-after: auto; page-break-after: auto; }
-  .deck-controls { display: none !important; }
-  [data-anim] { opacity: 1 !important; transform: none !important; clip-path: none !important; }
-}
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
-}
-
-/* === THEME TOKENS (Grove) === */
-:root {
-  --stage-bg: #0f1a10;
-  --bg: #192b1b; --bg-alt: #1e3221; --bg-light: #e8e4d6;
-  --fg: #d4cfbf; --fg-2: rgba(212,207,191,.66); --fg-3: rgba(212,207,191,.34);
-  --fg-light: #192b1b; --fg-light-2: rgba(25,43,27,.66);
-  --accent: #c8524a; --accent-light: #b2453e;
-  --border: rgba(212,207,191,.14); --border-light: rgba(25,43,27,.16);
-  --serif: 'Playfair Display', Georgia, serif;
-  --sans: 'Jost', system-ui, sans-serif;
-  --mono: 'JetBrains Mono', monospace;
-  --pad-x: 154px; --pad-y: 72px;
-  --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* === SLIDE SURFACES === */
-.slide { --slide-bg: var(--bg); background: var(--bg); color: var(--fg); font-family: var(--sans); font-weight: 300; }
-.slide.light { --slide-bg: var(--bg-light); background: var(--bg-light); color: var(--fg-light); }
-.frame { position: absolute; inset: 0; padding: var(--pad-y) var(--pad-x); display: flex; flex-direction: column; }
-
-/* === CHROME: top and foot hairline bars === */
-.chrome, .foot { display: flex; justify-content: space-between; font: 300 17px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--fg-2); }
-.brand { display:inline-flex; align-items:center; gap:14px; }
-.brand svg { width:28px; height:28px; }
-.chrome { align-items:center; padding-bottom: 22px; border-bottom: 1px solid var(--border); }
-.foot { padding-top: 22px; border-top: 1px solid var(--border); margin-top: auto; }
-.light .chrome, .light .foot { color: var(--fg-light-2); border-color: var(--border-light); }
-.body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 40px; padding: 36px 0; }
-
-/* === TYPE === */
-h1, h2, h3, .stat-v, .num-wm { font-family: var(--serif); font-weight: 400; margin: 0; letter-spacing: -0.01em; }
-h1 em, h2 em, h3 em { font-style: italic; color: var(--accent); }
-.light h1 em, .light h2 em { color: var(--accent-light); }
-.display { font-size: 192px; line-height: 1; }
-h1 { font-size: 104px; line-height: 1.08; }
-h2 { font-size: 66px; line-height: 1.14; }
-h3 { font-size: 38px; line-height: 1.25; }
-p { margin: 0; }
-.lead { font-size: 31px; line-height: 1.6; color: var(--fg-2); max-width: 1320px; }
-.light .lead { color: var(--fg-light-2); }
-.kick { display: flex; flex-direction: column; gap: 18px; }
-.kicker { font: 300 19px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
-.light .kicker { color: var(--accent-light); }
-.rule { width: 36px; height: 1px; background: var(--accent); }
-.small { font-size: 23px; line-height: 1.55; color: var(--fg-2); }
-.light .small { color: var(--fg-light-2); }
-.mono { font-family: var(--mono); letter-spacing: .12em; text-transform: uppercase; }
-
-/* === WATERMARK NUMERAL === */
-.num-wm { position: absolute; right: var(--pad-x); bottom: -60px; font-size: 360px; line-height: 1; color: rgba(212,207,191,.06); pointer-events: none; }
-.light .num-wm { color: rgba(25,43,27,.06); }
-
-/* === COVER === */
-.cover .frame { justify-content: space-between; }
-.cover .tag { font-family: var(--serif); font-style: italic; font-size: 54px; color: var(--accent); margin-top: 18px; }
-.cover .meta { display: flex; gap: 56px; font: 300 19px/1.6 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--fg-2); }
-.cover .meta b { display: block; font-weight: 300; color: var(--fg); }
-.orbit { position: absolute; right: 220px; top: 210px; width: 380px; height: 380px; }
-
-/* === STATS === */
-.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 72px; }
-.stat { display: flex; flex-direction: column; gap: 18px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
-.light .stat { border-color: var(--border-light); }
-.stat-v { font-size: 86px; line-height: 1; color: var(--accent); letter-spacing: -0.02em; }
-.light .stat-v { color: var(--accent-light); }
-.stat-l { font: 300 18px/1.6 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--fg-2); }
-.light .stat-l { color: var(--fg-light-2); }
-
-/* === STEPS (how it works) === */
-.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--border); }
-.step { padding: 36px 40px 0 0; display: flex; flex-direction: column; gap: 16px; }
-.step + .step { padding-left: 40px; border-left: 1px solid var(--border); }
-.step .ord { font: 300 18px/1 var(--mono); letter-spacing: .2em; color: var(--accent); }
-.step p { font-size: 24px; line-height: 1.6; color: var(--fg-2); }
-.step .src { font: 300 16px/1.5 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--fg); }
-
-/* === DASH LIST === */
-.dash { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
-.dash li span { display:block; }
-.dash li { display: grid; grid-template-columns: 52px 1fr; font-size: 28px; line-height: 1.5; }
-.dash li::before { content: "—"; font-family: var(--mono); color: var(--accent); }
-.light .dash li::before { color: var(--accent-light); }
-
-/* === EXPERIENCE: phone === */
-.split { display: grid; grid-template-columns: 1fr 560px; gap: 120px; align-items: center; }
-.phone { background: #10180f; border: 1px solid var(--border); padding: 40px 34px 34px; }
-.phone .bar { font: 300 15px/1 var(--mono); letter-spacing: .14em; color: var(--fg-3); text-transform: uppercase; display: flex; justify-content: space-between; margin-bottom: 22px; }
-.screen { background: #c9d6b8; color: #1d2414; padding: 30px; font: 400 24px/1.45 var(--mono); }
-.phone .cap { margin-top: 18px; font: 300 16px/1.5 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--fg-3); }
-
-/* === DATA TABLE === */
-.tbl { width: 100%; border-collapse: collapse; }
-.tbl th { text-align: left; font: 300 17px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent-light); padding: 0 0 18px; border-bottom: 1px solid var(--fg-light); }
-.tbl td { font-size: 27px; line-height: 1.4; padding: 18px 40px 18px 0; border-bottom: 1px solid var(--border-light); }
-.tbl td:first-child { font-family: var(--serif); font-size: 31px; width: 640px; }
-.tbl4 td { font-size: 24px; padding: 16px 32px 16px 0; }
-.tbl4 td:first-child { font-size: 28px; width: 400px; }
-
-/* === CLOSING === */
-.cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 72px; }
-.col { display: flex; flex-direction: column; gap: 16px; padding-top: 28px; border-top: 1px solid var(--border); }
-.col p { font-size: 25px; line-height: 1.6; color: var(--fg-2); }
-.links { font: 300 21px/1.6 var(--mono); letter-spacing: .1em; color: var(--fg); }
-.links span { color: var(--accent); }
-
-/* === ENTRANCE ANIMATION SYSTEM: [data-anim] + [data-delay] === */
-[data-anim] { opacity: 0; transition: opacity .7s var(--ease-enter), transform .7s var(--ease-enter), clip-path .9s var(--ease-enter); }
-[data-anim="fade-up"] { transform: translateY(28px); }
-[data-anim="scale-in"] { transform: scale(.94); }
-.slide.active [data-anim] { opacity: 1; transform: none; clip-path: inset(0 0 0 0); }
-[data-delay="1"] { transition-delay: .08s; } [data-delay="2"] { transition-delay: .18s; }
-[data-delay="3"] { transition-delay: .3s; }  [data-delay="4"] { transition-delay: .44s; }
-[data-delay="5"] { transition-delay: .6s; }  [data-delay="6"] { transition-delay: .78s; }
-.orbit .arc { stroke-dasharray: 16; stroke-dashoffset: 16; transition: stroke-dashoffset 1.6s var(--ease-enter) .4s; }
-.slide.active .orbit .arc { stroke-dashoffset: 0; }
-
-/* === NAV DOTS + EDIT (outside the slide design) === */
-.dots { display: flex; gap: 12px; }
-.dots button { width: 7px; height: 7px; padding: 0; border: 0; border-radius: 50%; background: rgba(128,128,128,.45); cursor: pointer; transition: transform .3s, background .3s; }
-.dots button.on { background: #c8524a; transform: scale(1.4); }
-.edit-hotzone { position: fixed; top: 0; left: 0; width: 80px; height: 80px; z-index: 10000; }
-.edit-toggle { position: fixed; top: 16px; left: 16px; opacity: 0; pointer-events: none; transition: opacity .3s; z-index: 10001; background: #e8e4d6; border: 0; padding: 8px 12px; font: 13px var(--mono); cursor: pointer; }
-.edit-toggle.show, .edit-toggle.active { opacity: 1; pointer-events: auto; }
-[contenteditable="true"]:focus { outline: 1px dashed var(--accent); }
+html,body{margin:0;height:100%;background:#07173F;overflow:hidden;font-family:system-ui,sans-serif}
+.stage{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+.slide{position:absolute;max-width:100vw;max-height:100vh;aspect-ratio:16/9;width:min(100vw,177.78vh);opacity:0;visibility:hidden;transition:opacity .35s}
+.slide.active{opacity:1;visibility:visible}
+.slide img{width:100%;height:100%;display:block}
+nav{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);display:flex;gap:10px;z-index:2}
+nav button{width:9px;height:9px;padding:0;border:0;border-radius:50%;background:rgba(255,255,255,.35);cursor:pointer}
+nav button.on{background:#EAFE07;transform:scale(1.3)}
+.arrow{position:fixed;top:0;bottom:0;width:18vw;border:0;background:transparent;cursor:pointer;z-index:1}
+.arrow.prev{left:0}.arrow.next{right:0}
+.arrow:focus-visible{outline:2px solid #EAFE07}
+@media print{html,body{overflow:visible;height:auto}.stage{position:static;display:block}.slide{position:relative;opacity:1;visibility:visible;width:100%;break-after:page}nav,.arrow{display:none}}
 </style>
 </head>
 <body>
-<div class="deck-viewport">
-<main class="deck-stage" id="deckStage">
-
-<!-- === SLIDE 1: COVER === -->
-<section class="slide cover active" aria-label="Rotawise">
-  <svg class="orbit" viewBox="0 0 32 32" aria-hidden="true">
-    <circle cx="16" cy="16" r="13" fill="#fffdf8" stroke="#7a4e2d" stroke-width="2.4"/>
-    <path class="arc" d="M16 6A10 10 0 0 1 26 16" fill="none" stroke="#3f7d4e" stroke-width="3.2" stroke-linecap="round"/>
-    <path class="arc" d="M16 26A10 10 0 0 1 6 16" fill="none" stroke="#c8962e" stroke-width="3.2" stroke-linecap="round"/>
-    <circle cx="16" cy="16" r="3" fill="#7a4e2d"/>
-  </svg>
-  <div class="frame">
-    <div class="kick" data-anim="fade-in"><span class="kicker">NASA Space Apps Challenge 2026 · Field Shift: Adapting Farms with NASA Data</span><span class="rule"></span></div>
-    <div>
-      <h1 class="display" data-anim="fade-up" data-delay="1">Rotawise</h1>
-      <p class="tag" data-anim="fade-up" data-delay="2">Field memory from NASA satellites</p>
-    </div>
-    <div class="meta" data-anim="fade-in" data-delay="4">
-      <div>Team<b>Rotawise</b></div>
-      <div>Local event<b>Abuja, Nigeria</b></div>
-      <div>Team lead<b>Jothan Jerry Kato</b></div>
-    </div>
-    <p class="meta" data-anim="fade-in" data-delay="5" style="margin-top:-40px;display:block;">Members<b>Jothan Jerry Kato · Adamilo Aaron Daniel · Umar Faruq Oladoja · Miracle Mathew · Sadiq Bashir Abdullahi · Ndazibari Charles Joshua</b></p>
-  </div>
-</section>
-
-<!-- === SLIDE 2: THE PROBLEM === -->
-<section class="slide" aria-label="The problem">
-  <div class="frame">
-    <div class="chrome"><span class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="#fffdf8" stroke="#7a4e2d" stroke-width="2.4"/><path d="M16 6A10 10 0 0 1 26 16" fill="none" stroke="#3f7d4e" stroke-width="3.2" stroke-linecap="round"/><path d="M16 26A10 10 0 0 1 6 16" fill="none" stroke="#c8962e" stroke-width="3.2" stroke-linecap="round"/><circle cx="16" cy="16" r="3" fill="#7a4e2d"/></svg>Rotawise</span><span>The problem</span></div>
-    <div class="body">
-      <div class="kick" data-anim="fade-in"><span class="kicker">The problem</span><span class="rule"></span></div>
-      <h2 data-anim="fade-up" data-delay="1">Same field, same crop, <em>season after season.</em></h2>
-      <p class="lead" data-anim="fade-up" data-delay="2">Savanna smallholders plant maize on the same land year after year. The soil tires, Striga weed spreads and fertilizer keeps getting dearer. Extension advice is generic, there are too few agents, and no one tells the farmer what to change on their own plot.</p>
-      <div class="stats">
-        <div class="stat" data-anim="fade-up" data-delay="3"><span class="stat-v">&lt;2 t/ha</span><span class="stat-l">Mean maize yield, Guinea savanna</span></div>
-        <div class="stat" data-anim="fade-up" data-delay="4"><span class="stat-v">70–100%</span><span class="stat-l">Losses farmers report from Striga</span></div>
-        <div class="stat" data-anim="fade-up" data-delay="5"><span class="stat-v">₦50,000+</span><span class="stat-l">One 50 kg bag of urea</span></div>
-      </div>
-      <p class="small" data-anim="fade-in" data-delay="6">Who it hurts most: smallholders on 0.5 to 2 hectares in the northern and middle belt savanna, most with a basic phone and no data.</p>
-    </div>
-    <div class="foot"><span>Heliyon 2022 · Striga farmer surveys, N. Nigeria · market reports 2025–26</span><span>02 / 07</span></div>
-  </div>
-</section>
-
-<!-- === SLIDE 3: KEY INSIGHT + OUR SOLUTION === -->
-<section class="slide" aria-label="Key insight and our solution">
-  <div class="frame">
-    <div class="chrome"><span class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="#fffdf8" stroke="#7a4e2d" stroke-width="2.4"/><path d="M16 6A10 10 0 0 1 26 16" fill="none" stroke="#3f7d4e" stroke-width="3.2" stroke-linecap="round"/><path d="M16 26A10 10 0 0 1 6 16" fill="none" stroke="#c8962e" stroke-width="3.2" stroke-linecap="round"/><circle cx="16" cy="16" r="3" fill="#7a4e2d"/></svg>Rotawise</span><span>Insight · Solution</span></div>
-    <div class="body">
-      <div class="kick" data-anim="fade-in"><span class="kicker">Key insight · Our solution</span><span class="rule"></span></div>
-      <h2 data-anim="fade-up" data-delay="1">Satellites already remember <em>every season on every plot.</em></h2>
-      <p class="lead" data-anim="fade-up" data-delay="2" style="font-size:27px;">Farmers rarely keep records, but NASA has watched each field every few days for years. Rotawise turns that memory into one rotation choice the farmer can act on.</p>
-      <div class="steps">
-        <div class="step" data-anim="fade-up" data-delay="3"><span class="ord">01</span><h3>Field memory</h3><p>Each season since 2020 read as cereal like, legume like or bare, with a confidence score.</p><span class="src">NASA HLS</span></div>
-        <div class="step" data-anim="fade-up" data-delay="4"><span class="ord">02</span><h3>Soil fatigue</h3><p>A 0 to 100 score from the cereal run, the greenness trend and soil carbon, nitrogen and pH.</p><span class="src">NASA HLS · SoilGrids</span></div>
-        <div class="step" data-anim="fade-up" data-delay="5"><span class="ord">03</span><h3>Climate test</h3><p>Rain onset, dry spells and heat today, and rain and hot days projected for the 2040s.</p><span class="src">NASA POWER · NEX-GDDP-CMIP6</span></div>
-        <div class="step" data-anim="fade-up" data-delay="6"><span class="ord">04</span><h3>Rotation choice</h3><p>The current rotation against four others, each with reasons, evidence, naira, gaps and risks.</p><span class="src">Nigerian field trials</span></div>
-      </div>
-    </div>
-    <div class="foot"><span>No forms, no land records: the plot's history comes from orbit</span><span>03 / 07</span></div>
-  </div>
-</section>
-
-<!-- === SLIDE 4: THE EXPERIENCE === -->
-<section class="slide" aria-label="The experience">
-  <div class="frame">
-    <div class="chrome"><span class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="#fffdf8" stroke="#7a4e2d" stroke-width="2.4"/><path d="M16 6A10 10 0 0 1 26 16" fill="none" stroke="#3f7d4e" stroke-width="3.2" stroke-linecap="round"/><path d="M16 26A10 10 0 0 1 6 16" fill="none" stroke="#c8962e" stroke-width="3.2" stroke-linecap="round"/><circle cx="16" cy="16" r="3" fill="#7a4e2d"/></svg>Rotawise</span><span>The experience</span></div>
-    <div class="body">
-      <div class="split">
-        <div style="display:flex;flex-direction:column;gap:36px;">
-          <div class="kick" data-anim="fade-in"><span class="kicker">The experience</span><span class="rule"></span></div>
-          <h2 data-anim="fade-up" data-delay="1">One clear answer, <em>on any phone.</em></h2>
-          <ul class="dash" data-anim="fade-up" data-delay="2">
-            <li><span><b style="font-weight:400;color:var(--fg)">Before</b> · Malam Musa in Zaria plans maize again, the fourth season in a row</span></li>
-            <li><span><b style="font-weight:400;color:var(--fg)">During</b> · He dials the short code, picks Hausa and his farm, and gets the reply below in seconds</span></li>
-            <li><span><b style="font-weight:400;color:var(--fg)">After</b> · His extension officer sees the same plan on the dashboard map and checks seed and soil phosphorus with him</span></li>
-          </ul>
-        </div>
-        <div class="phone" data-anim="scale-in" data-delay="3">
-          <div class="bar"><span>USSD</span><span>Rotawise</span></div>
-          <div class="screen">Plant SOYBEAN next season, then maize. Saves 0.6-2.4 bags urea/ha (N30-N120k). Cuts Striga up to 76%. Confirm with your extension agent.</div>
-          <p class="cap">Live reply · Zaria pilot farm · urea ₦50,000/bag</p>
-        </div>
-      </div>
-    </div>
-    <div class="foot"><span>Live at rotawise-five.vercel.app · farmer name is illustrative</span><span>04 / 07</span></div>
-  </div>
-</section>
-
-<!-- === SLIDE 5: INCLUSIVE BY DESIGN (light page) === -->
-<section class="slide light" aria-label="Inclusive by design">
-  <div class="frame">
-    <div class="chrome"><span class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="#fffdf8" stroke="#7a4e2d" stroke-width="2.4"/><path d="M16 6A10 10 0 0 1 26 16" fill="none" stroke="#3f7d4e" stroke-width="3.2" stroke-linecap="round"/><path d="M16 26A10 10 0 0 1 6 16" fill="none" stroke="#c8962e" stroke-width="3.2" stroke-linecap="round"/><circle cx="16" cy="16" r="3" fill="#7a4e2d"/></svg>Rotawise</span><span>Inclusive by design</span></div>
-    <div class="body">
-      <div class="kick" data-anim="fade-in"><span class="kicker">Inclusive by design</span><span class="rule" style="background:var(--accent-light)"></span></div>
-      <h2 data-anim="fade-up" data-delay="1">Built for the farmer <em>most tools leave out.</em></h2>
-      <table class="tbl tbl4" data-anim="fade-up" data-delay="2">
-        <tr><th>Who could be excluded</th><th>The barrier</th><th>What we designed differently</th><th>How we validate</th></tr>
-        <tr><td>Farmers with basic phones</td><td>No smartphone, no data</td><td>USSD on any phone, replies under 182 characters</td><td>Field test in five LGAs</td></tr>
-        <tr><td>Farmers who don't read English</td><td>Language</td><td>Hausa and English now, Hausa voice next</td><td>Native speaker review of every message</td></tr>
-        <tr><td>Women and tenant farmers</td><td>No land papers or records</td><td>Plot history read from orbit, nothing to fill in</td><td>Pilot with women's cooperatives</td></tr>
-        <tr><td>Farmers on tiny mixed plots</td><td>30 m pixels can misread</td><td>Confidence on every season, farmer confirms</td><td>Test against labelled fields</td></tr>
-      </table>
-    </div>
-    <div class="foot"><span>Free to the farmer · no app download · no sign up</span><span>05 / 07</span></div>
-  </div>
-</section>
-
-<!-- === SLIDE 6: IMPACT & FEASIBILITY === -->
-<section class="slide" aria-label="Impact and feasibility">
-  <div class="num-wm" aria-hidden="true" style="bottom:90px;">₦</div>
-  <div class="frame">
-    <div class="chrome"><span class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="#fffdf8" stroke="#7a4e2d" stroke-width="2.4"/><path d="M16 6A10 10 0 0 1 26 16" fill="none" stroke="#3f7d4e" stroke-width="3.2" stroke-linecap="round"/><path d="M16 26A10 10 0 0 1 6 16" fill="none" stroke="#c8962e" stroke-width="3.2" stroke-linecap="round"/><circle cx="16" cy="16" r="3" fill="#7a4e2d"/></svg>Rotawise</span><span>Impact · Feasibility</span></div>
-    <div class="body" style="gap:34px;">
-      <div class="kick" data-anim="fade-in"><span class="kicker">Impact per hectare · Why it is feasible</span><span class="rule"></span></div>
-      <h2 data-anim="fade-up" data-delay="1">A legume break <em>pays the farmer back.</em></h2>
-      <div class="stats">
-        <div class="stat" data-anim="fade-up" data-delay="2"><span class="stat-v">2.4 bags</span><span class="stat-l">Urea saved when soybean comes before maize · about ₦120,000</span></div>
-        <div class="stat" data-anim="fade-up" data-delay="3"><span class="stat-v">+68%</span><span class="stat-l">Maize yield after soybean vs continuous maize</span></div>
-        <div class="stat" data-anim="fade-up" data-delay="4"><span class="stat-v">−76%</span><span class="stat-l">Striga after two legume seasons</span></div>
-      </div>
-      <div class="cols" style="gap:56px;">
-        <div class="col" data-anim="fade-up" data-delay="5"><h3>Success looks like</h3><p>Farmers switching to a legume, urea bags saved, yield and Striga checked each season.</p></div>
-        <div class="col" data-anim="fade-up" data-delay="5"><h3>Feasible</h3><p>Open NASA data, no hardware, already live. Partners: ADP extension services, cooperatives, a USSD aggregator.</p></div>
-        <div class="col" data-anim="fade-up" data-delay="6"><h3>Risks</h3><p>Pixel limits on tiny plots, price swings, trust. Handled with confidence scores, editable prices, agent sign off.</p></div>
-      </div>
-    </div>
-    <div class="foot"><span>Upper values, N. Guinea savanna · NJSER 2008 · Yusuf et al. 2009 · Kureh et al. 2006</span><span>06 / 07</span></div>
-  </div>
-</section>
-
-<!-- === SLIDE 7: PROTOTYPE, NEXT STEPS + THE ASK === -->
-<section class="slide cover" aria-label="Prototype, next steps and the ask">
-  <div class="num-wm" aria-hidden="true">07</div>
-  <div class="frame">
-    <div class="kick" data-anim="fade-in"><span class="kicker">Prototype · Next steps · The ask</span><span class="rule"></span></div>
-    <h1 data-anim="fade-up" data-delay="1" style="font-size:88px;">Working today on <em>real NASA data.</em></h1>
-    <div class="cols">
-      <div class="col" data-anim="fade-up" data-delay="2"><h3>Built and tested</h3><p>Live dashboard, USSD in Hausa and English, open API. 1,824 satellite readings across five pilot farms: four show continuous cereal, with soil fatigue 52 to 60.</p></div>
-      <div class="col" data-anim="fade-up" data-delay="3"><h3>Next</h3><p>Check readings against labelled fields, pilot in five LGAs, add Hausa voice, Yoruba and Igbo. Long term, every West African plot NASA observes.</p></div>
-      <div class="col" data-anim="fade-up" data-delay="4"><h3>The ask</h3><p>Pilot access through state ADPs and cooperatives, labelled field data for testing, and a USSD short code partner.</p></div>
-    </div>
-    <p class="links" data-anim="fade-in" data-delay="5"><span>→</span> rotawise-five.vercel.app &nbsp;&nbsp; <span>→</span> github.com/Jothankato05/Rotawise</p>
-  </div>
-</section>
-
+<main class="stage" id="stage">
+<section class="slide active" aria-label="Slide 1 of 7"><img src="slides/1.webp" alt="NASA SPACE APPS CHALLENGE  ·  NOVEMBER 14–15, 2026  ·  ABUJA · ROTAWISE · FIELD MEMORY FROM NASA SATELLITES · Challenge: Field Shift: Adapting Farms with NASA Data · Presented by Team Rotawise Jothan Jerry Kato (lead) · Adamilo Aaron Daniel · Umar Faruq Oladoja · Miracle Mathew · Sadiq Bashir Abdullahi · Ndazibari Charles Joshua November 2026" width="1920" height="1080" fetchpriority=high></section>
+<section class="slide" aria-label="Slide 2 of 7"><img src="slides/2.webp" alt="THE PROBLEM · SAME FIELD, SAME CROP, SEASON AFTER SEASON · 02 / 07 · Savanna smallholders plant maize on the same land year after year. The soil tires, Striga weed spreads and fertilizer keeps getting dearer. Extension advice is generic, agents are too few, and no one tells the farmer what to change on their own plot. · &lt;2 t/ha · Mean maize yield in the Guinea savanna · 70–100% · Crop losses farmers report from Striga · ₦50,000+ · One 50 kg bag of urea · Who it hurts most: smallholders on 0.5 to 2 hectares in the northern and middle belt savanna, most with a basic phone and no data. · Sources: Heliyon 2022 · Striga farmer surveys, northern Nigeria · market reports 2025–26" width="1920" height="1080" loading=lazy></section>
+<section class="slide" aria-label="Slide 3 of 7"><img src="slides/3.webp" alt="KEY INSIGHT · OUR SOLUTION · SATELLITES ALREADY REMEMBER EVERY SEASON · 03 / 07 · Farmers rarely keep records, but NASA has watched each field every few days for years. Rotawise turns that memory into one rotation choice the farmer can act on. · 01 · Field memory · Each season since 2020 read as cereal like, legume like or bare, with a confidence score. · NASA HLS · 02 · Soil fatigue · A 0 to 100 score from the cereal run, the greenness trend and soil carbon, nitrogen and pH. · NASA HLS · SoilGrids · 03 · Climate test · Rain onset, dry spells and heat today, and rain and hot days projected for the 2040s. · NASA POWER · NEX-GDDP-CMIP6 · 04 · Rotation choice · The current rotation against four others, with reasons, evidence, naira, gaps and risks. · Nigerian field trials" width="1920" height="1080" loading=lazy></section>
+<section class="slide" aria-label="Slide 4 of 7"><img src="slides/4.webp" alt="THE EXPERIENCE · ONE CLEAR ANSWER, ON ANY PHONE · 04 / 07 · BEFORE · Malam Musa in Zaria plans maize again, the fourth season in a row. · DURING · He dials the short code, picks Hausa and his farm, and gets the reply in seconds. · AFTER · His extension officer sees the same plan on the dashboard map and checks seed and soil phosphorus with him. · Farmer name is illustrative · live at rotawise-five.vercel.app · USSD  ·  ROTAWISE · Plant SOYBEAN next season, then maize. Saves 0.6-2.4 bags urea/ha (N30-N120k). Cuts Striga up to 76%. Confirm with your extension agent. · Live reply · Zaria pilot farm · urea ₦50,000/bag" width="1920" height="1080" loading=lazy></section>
+<section class="slide" aria-label="Slide 5 of 7"><img src="slides/5.webp" alt="INCLUSIVE BY DESIGN · BUILT FOR THE FARMER MOST TOOLS LEAVE OUT · 05 / 07 · Who could be excluded | The barrier | What we designed differently | How we validate · Farmers with basic phones | No smartphone, no data | USSD on any phone, replies under 182 characters | Field test in five LGAs · Farmers who don&#x27;t read English | Language | Hausa and English now, Hausa voice next | Native speaker review of every message · Women and tenant farmers | No land papers or records | Plot history read from orbit, nothing to fill in | Pilot with women&#x27;s cooperatives · Farmers on tiny mixed plots | 30 m pixels can misread | A confidence score on every season; the farmer confirms | Test against labelled fields · Free to the farmer · no app download · no sign up" width="1920" height="1080" loading=lazy></section>
+<section class="slide" aria-label="Slide 6 of 7"><img src="slides/6.webp" alt="IMPACT · FEASIBILITY · A LEGUME BREAK PAYS THE FARMER BACK · 06 / 07 · 2.4 bags · Urea saved per hectare when soybean comes before maize, about ₦120,000 · +68% · Maize yield after soybean vs continuous maize · −76% · Striga after two legume seasons · Upper values, northern Guinea savanna · NJSER 2008 · Yusuf et al. 2009 · Kureh et al. 2006 · REAL NASA DATA · 5 PILOT FARMS · Farm | Cereal run | Fatigue | Advice · Zaria | 3 | 52 | Maize → Soybean · Dawakin Tofa | 4 | 60 | Sorghum → Cowpea · Bida | mixed | 53 | Maize → Soybean · Bokkos | 4 | 57 | Maize → Soybean · Gwagwalada | 4 | 58 | Maize → Soybean · Success looks like · Farmers switching to a legume, urea bags saved, yield and Striga checked each season. · Feasible · Open NASA data, no hardware, already live. Partners: ADP extension services, cooperatives, a USSD aggregator. · Risks · Pixel limits on tiny plots, price swings, trust. Handled with confidence scores, editable prices and agent sign off." width="1920" height="1080" loading=lazy></section>
+<section class="slide" aria-label="Slide 7 of 7"><img src="slides/7.webp" alt="PROTOTYPE · NEXT STEPS · THE ASK · WORKING TODAY ON REAL NASA DATA · 07 / 07 · Built and tested · Live dashboard, USSD in Hausa and English, open API. 1,824 satellite readings across five pilot farms. · Next · Check readings against labelled fields, pilot in five LGAs, add Hausa voice, Yoruba and Igbo. · The ask · Pilot access through state ADPs and cooperatives, labelled field data for testing, and a USSD short code partner. · Thank you  ·  rotawise-five.vercel.app  ·  github.com/Jothankato05/Rotawise" width="1920" height="1080" loading=lazy></section>
 </main>
-</div>
-
-<nav class="deck-controls"><div class="dots" id="dots"></div></nav>
-<div class="edit-hotzone"></div>
-<button class="edit-toggle" id="editToggle" title="Edit mode (E)">EDIT</button>
-
+<button class="arrow prev" aria-label="Previous slide"></button><button class="arrow next" aria-label="Next slide"></button>
+<nav id="dots" aria-label="Slides"></nav>
 <script>
-/* === DECK CONTROLLER: fixed-stage scaling + navigation === */
-class Deck {
-  constructor() {
-    this.stage = document.getElementById('deckStage');
-    this.slides = [...document.querySelectorAll('.slide')];
-    this.i = 0;
-    this.dots = document.getElementById('dots');
-    this.slides.forEach((_, n) => {
-      const b = document.createElement('button');
-      b.setAttribute('aria-label', 'Go to slide ' + (n + 1));
-      b.addEventListener('click', () => this.go(n));
-      this.dots.appendChild(b);
-    });
-    const scale = () => {
-      const f = Math.min(innerWidth / 1920, innerHeight / 1080);
-      const x = (innerWidth - 1920 * f) / 2, y = (innerHeight - 1080 * f) / 2;
-      this.stage.style.transform = `translate(${x}px, ${y}px) scale(${f})`;
-    };
-    scale(); addEventListener('resize', scale);
-    document.addEventListener('keydown', (e) => {
-      if (e.target.isContentEditable) return;
-      if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); this.go(this.i + 1); }
-      if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); this.go(this.i - 1); }
-      if (e.key === 'Home') this.go(0);
-      if (e.key === 'End') this.go(this.slides.length - 1);
-    });
-    let sx = null;
-    addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; }, { passive: true });
-    addEventListener('touchend', (e) => {
-      if (sx === null) return;
-      const dx = e.changedTouches[0].clientX - sx;
-      if (Math.abs(dx) > 40) this.go(this.i + (dx < 0 ? 1 : -1));
-      sx = null;
-    });
-    document.querySelector('.deck-stage').addEventListener('click', (e) => {
-      if (editor.isActive || e.target.closest('a,button')) return;
-      this.go(this.i + 1);
-    });
-    const h = parseInt(location.hash.replace('#', ''), 10);
-    this.go(Number.isFinite(h) ? h - 1 : 0, true);
-  }
-  go(n, first) {
-    n = Math.max(0, Math.min(this.slides.length - 1, n));
-    if (n === this.i && !first) return;
-    this.slides[this.i].classList.remove('active');
-    this.i = n;
-    const s = this.slides[n];
-    void s.offsetWidth;
-    s.classList.add('active');
-    [...this.dots.children].forEach((d, k) => d.classList.toggle('on', k === n));
-    history.replaceState(null, '', '#' + (n + 1));
-  }
-}
-/* === INLINE EDITING: hover top-left or press E === */
-const editor = {
-  isActive: false,
-  toggleEditMode() {
-    this.isActive = !this.isActive;
-    document.querySelectorAll('.slide h1, .slide h2, .slide h3, .slide p, .slide li, .slide td, .slide .stat-v, .slide .stat-l, .slide .screen, .slide .meta b')
-      .forEach((el) => el.setAttribute('contenteditable', String(this.isActive)));
-    btn.classList.toggle('active', this.isActive);
-    btn.textContent = this.isActive ? 'DONE' : 'EDIT';
-  },
-};
-const btn = document.getElementById('editToggle');
-const deck = new Deck();
-const hot = document.querySelector('.edit-hotzone');
-let hideT;
-hot.addEventListener('mouseenter', () => { clearTimeout(hideT); btn.classList.add('show'); });
-hot.addEventListener('mouseleave', () => { hideT = setTimeout(() => { if (!editor.isActive) btn.classList.remove('show'); }, 400); });
-btn.addEventListener('mouseenter', () => clearTimeout(hideT));
-btn.addEventListener('click', () => editor.toggleEditMode());
-document.addEventListener('keydown', (e) => {
-  if ((e.key === 'e' || e.key === 'E') && !e.target.isContentEditable) editor.toggleEditMode();
-});
+const slides=[...document.querySelectorAll('.slide')],dots=document.getElementById('dots');let i=0;
+slides.forEach((_,n)=>{const b=document.createElement('button');b.setAttribute('aria-label','Go to slide '+(n+1));b.onclick=()=>go(n);dots.appendChild(b);});
+function go(n){n=Math.max(0,Math.min(slides.length-1,n));slides[i].classList.remove('active');i=n;slides[i].classList.add('active');[...dots.children].forEach((d,k)=>d.classList.toggle('on',k===i));history.replaceState(null,'','#'+(i+1));}
+document.querySelector('.prev').onclick=()=>go(i-1);document.querySelector('.next').onclick=()=>go(i+1);
+addEventListener('keydown',e=>{if(['ArrowRight','ArrowDown','PageDown',' '].includes(e.key)){e.preventDefault();go(i+1)}if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(i-1)}if(e.key==='Home')go(0);if(e.key==='End')go(slides.length-1);});
+let sx=null;addEventListener('touchstart',e=>sx=e.touches[0].clientX,{passive:true});addEventListener('touchend',e=>{if(sx===null)return;const d=e.changedTouches[0].clientX-sx;if(Math.abs(d)>40)go(i+(d<0?1:-1));sx=null;});
+const h=parseInt(location.hash.slice(1),10);go(Number.isFinite(h)?h-1:0);
 </script>
 </body>
 </html>
