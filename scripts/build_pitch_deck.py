@@ -53,7 +53,7 @@ b=box(s,0.8,3.15,8.6,0.95,BLUE,radius=0.2)
 text(s,1.1,3.15,8.2,0.95,"FIELD MEMORY FROM NASA SATELLITES",28,YEL,True,FB,anchor=MSO_ANCHOR.MIDDLE)
 text(s,0.8,4.45,11.5,0.5,"Challenge: Field Shift: Adapting Farms with NASA Data",18,WHITE)
 text(s,0.8,5.35,11.8,1.2,"",16,SOFT,lines=[
-  [("Presented by ",{'color':SOFT}),("Team Rotawise",{'bold':True,'color':WHITE})],
+  [("Presented by ",{'color':SOFT}),("Team Primers",{'bold':True,'color':WHITE})],
   [("Jothan Jerry Kato (lead) · Adamilo Aaron Daniel · Umar Faruq Oladoja · Miracle Mathew · Sadiq Bashir Abdullahi · Ndazibari Charles Joshua",{'size':14,'color':SOFT})],
   [("November 2026",{'size':14,'color':SOFT})]],spacing=6)
 
