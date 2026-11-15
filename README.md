@@ -1,3 +1,5 @@
+<p><img src="assets/logo.svg" alt="Rotawise logo" width="72"></p>
+
 # Rotawise
 
 Field memory from NASA satellites. Rotawise rebuilds each Nigerian smallholder plot's season history from ten years of NASA Harmonized Landsat Sentinel imagery, scores how tired the soil is, compares at least three crop rotations (including the farmer's current one) against NASA rainfall and climate projections, prices the result in naira, and delivers the advice in Hausa or English over USSD on any phone.

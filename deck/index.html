@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rotawise · NASA Space Apps 2026</title>
 <meta name="description" content="Rotawise: field memory from NASA satellites. Crop rotation advice for Nigerian smallholder farms, on any phone.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Jost:wght@300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -55,7 +56,9 @@ img, video, canvas, svg { max-width: 100%; max-height: 100%; }
 
 /* === CHROME: top and foot hairline bars === */
 .chrome, .foot { display: flex; justify-content: space-between; font: 300 17px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--fg-2); }
-.chrome { padding-bottom: 22px; border-bottom: 1px solid var(--border); }
+.brand { display:inline-flex; align-items:center; gap:14px; }
+.brand svg { width:28px; height:28px; }
+.chrome { align-items:center; padding-bottom: 22px; border-bottom: 1px solid var(--border); }
 .foot { padding-top: 22px; border-top: 1px solid var(--border); margin-top: auto; }
 .light .chrome, .light .foot { color: var(--fg-light-2); border-color: var(--border-light); }
 .body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 40px; padding: 36px 0; }
@@ -88,7 +91,7 @@ p { margin: 0; }
 .cover .tag { font-family: var(--serif); font-style: italic; font-size: 54px; color: var(--accent); margin-top: 18px; }
 .cover .meta { display: flex; gap: 56px; font: 300 19px/1.6 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--fg-2); }
 .cover .meta b { display: block; font-weight: 300; color: var(--fg); }
-.orbit { position: absolute; right: 140px; top: 120px; width: 560px; height: 560px; opacity: .9; }
+.orbit { position: absolute; right: 220px; top: 210px; width: 380px; height: 380px; }
 
 /* === STATS === */
 .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 72px; }
@@ -144,7 +147,7 @@ p { margin: 0; }
 [data-delay="1"] { transition-delay: .08s; } [data-delay="2"] { transition-delay: .18s; }
 [data-delay="3"] { transition-delay: .3s; }  [data-delay="4"] { transition-delay: .44s; }
 [data-delay="5"] { transition-delay: .6s; }  [data-delay="6"] { transition-delay: .78s; }
-.orbit .arc { stroke-dasharray: 520; stroke-dashoffset: 520; transition: stroke-dashoffset 1.6s var(--ease-enter) .4s; }
+.orbit .arc { stroke-dasharray: 16; stroke-dashoffset: 16; transition: stroke-dashoffset 1.6s var(--ease-enter) .4s; }
 .slide.active .orbit .arc { stroke-dashoffset: 0; }
 
 /* === NAV DOTS + EDIT (outside the slide design) === */
@@ -163,13 +166,11 @@ p { margin: 0; }
 
 <!-- === SLIDE 1: COVER === -->
 <section class="slide cover active" aria-label="Rotawise">
-  <svg class="orbit" viewBox="0 0 200 200" aria-hidden="true">
-    <circle cx="100" cy="100" r="92" fill="none" stroke="rgba(212,207,191,.14)" stroke-width="1"/>
-    <circle cx="100" cy="100" r="62" fill="none" stroke="rgba(212,207,191,.10)" stroke-width="1"/>
-    <path class="arc" d="M100 8 A92 92 0 0 1 192 100" fill="none" stroke="#c8524a" stroke-width="1.6"/>
-    <path class="arc" d="M100 192 A92 92 0 0 1 8 100" fill="none" stroke="#d4cfbf" stroke-width="1.6"/>
-    <circle cx="192" cy="100" r="3.2" fill="#c8524a"/>
-    <circle cx="100" cy="100" r="5" fill="#d4cfbf"/>
+  <svg class="orbit" viewBox="0 0 32 32" aria-hidden="true">
+    <circle cx="16" cy="16" r="13" fill="#fffdf8" stroke="#7a4e2d" stroke-width="2.4"/>
+    <path class="arc" d="M16 6A10 10 0 0 1 26 16" fill="none" stroke="#3f7d4e" stroke-width="3.2" stroke-linecap="round"/>
+    <path class="arc" d="M16 26A10 10 0 0 1 6 16" fill="none" stroke="#c8962e" stroke-width="3.2" stroke-linecap="round"/>
+    <circle cx="16" cy="16" r="3" fill="#7a4e2d"/>
   </svg>
   <div class="frame">
     <div class="kick" data-anim="fade-in"><span class="kicker">NASA Space Apps Challenge 2026 · Field Shift: Adapting Farms with NASA Data</span><span class="rule"></span></div>
@@ -189,7 +190,7 @@ p { margin: 0; }
 <!-- === SLIDE 2: THE PROBLEM === -->
 <section class="slide" aria-label="The problem">
   <div class="frame">
-    <div class="chrome"><span>Rotawise</span><span>The problem</span></div>
+    <div class="chrome"><span class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="#fffdf8" stroke="#7a4e2d" stroke-width="2.4"/><path d="M16 6A10 10 0 0 1 26 16" fill="none" stroke="#3f7d4e" stroke-width="3.2" stroke-linecap="round"/><path d="M16 26A10 10 0 0 1 6 16" fill="none" stroke="#c8962e" stroke-width="3.2" stroke-linecap="round"/><circle cx="16" cy="16" r="3" fill="#7a4e2d"/></svg>Rotawise</span><span>The problem</span></div>
     <div class="body">
       <div class="kick" data-anim="fade-in"><span class="kicker">The problem</span><span class="rule"></span></div>
       <h2 data-anim="fade-up" data-delay="1">Same field, same crop, <em>season after season.</em></h2>
@@ -208,7 +209,7 @@ p { margin: 0; }
 <!-- === SLIDE 3: KEY INSIGHT + OUR SOLUTION === -->
 <section class="slide" aria-label="Key insight and our solution">
   <div class="frame">
-    <div class="chrome"><span>Rotawise</span><span>Insight · Solution</span></div>
+    <div class="chrome"><span class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="#fffdf8" stroke="#7a4e2d" stroke-width="2.4"/><path d="M16 6A10 10 0 0 1 26 16" fill="none" stroke="#3f7d4e" stroke-width="3.2" stroke-linecap="round"/><path d="M16 26A10 10 0 0 1 6 16" fill="none" stroke="#c8962e" stroke-width="3.2" stroke-linecap="round"/><circle cx="16" cy="16" r="3" fill="#7a4e2d"/></svg>Rotawise</span><span>Insight · Solution</span></div>
     <div class="body">
       <div class="kick" data-anim="fade-in"><span class="kicker">Key insight · Our solution</span><span class="rule"></span></div>
       <h2 data-anim="fade-up" data-delay="1">Satellites already remember <em>every season on every plot.</em></h2>
@@ -227,7 +228,7 @@ p { margin: 0; }
 <!-- === SLIDE 4: THE EXPERIENCE === -->
 <section class="slide" aria-label="The experience">
   <div class="frame">
-    <div class="chrome"><span>Rotawise</span><span>The experience</span></div>
+    <div class="chrome"><span class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="#fffdf8" stroke="#7a4e2d" stroke-width="2.4"/><path d="M16 6A10 10 0 0 1 26 16" fill="none" stroke="#3f7d4e" stroke-width="3.2" stroke-linecap="round"/><path d="M16 26A10 10 0 0 1 6 16" fill="none" stroke="#c8962e" stroke-width="3.2" stroke-linecap="round"/><circle cx="16" cy="16" r="3" fill="#7a4e2d"/></svg>Rotawise</span><span>The experience</span></div>
     <div class="body">
       <div class="split">
         <div style="display:flex;flex-direction:column;gap:36px;">
@@ -253,7 +254,7 @@ p { margin: 0; }
 <!-- === SLIDE 5: INCLUSIVE BY DESIGN (light page) === -->
 <section class="slide light" aria-label="Inclusive by design">
   <div class="frame">
-    <div class="chrome"><span>Rotawise</span><span>Inclusive by design</span></div>
+    <div class="chrome"><span class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="#fffdf8" stroke="#7a4e2d" stroke-width="2.4"/><path d="M16 6A10 10 0 0 1 26 16" fill="none" stroke="#3f7d4e" stroke-width="3.2" stroke-linecap="round"/><path d="M16 26A10 10 0 0 1 6 16" fill="none" stroke="#c8962e" stroke-width="3.2" stroke-linecap="round"/><circle cx="16" cy="16" r="3" fill="#7a4e2d"/></svg>Rotawise</span><span>Inclusive by design</span></div>
     <div class="body">
       <div class="kick" data-anim="fade-in"><span class="kicker">Inclusive by design</span><span class="rule" style="background:var(--accent-light)"></span></div>
       <h2 data-anim="fade-up" data-delay="1">Built for the farmer <em>most tools leave out.</em></h2>
@@ -273,7 +274,7 @@ p { margin: 0; }
 <section class="slide" aria-label="Impact and feasibility">
   <div class="num-wm" aria-hidden="true" style="bottom:90px;">₦</div>
   <div class="frame">
-    <div class="chrome"><span>Rotawise</span><span>Impact · Feasibility</span></div>
+    <div class="chrome"><span class="brand"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="13" fill="#fffdf8" stroke="#7a4e2d" stroke-width="2.4"/><path d="M16 6A10 10 0 0 1 26 16" fill="none" stroke="#3f7d4e" stroke-width="3.2" stroke-linecap="round"/><path d="M16 26A10 10 0 0 1 6 16" fill="none" stroke="#c8962e" stroke-width="3.2" stroke-linecap="round"/><circle cx="16" cy="16" r="3" fill="#7a4e2d"/></svg>Rotawise</span><span>Impact · Feasibility</span></div>
     <div class="body" style="gap:34px;">
       <div class="kick" data-anim="fade-in"><span class="kicker">Impact per hectare · Why it is feasible</span><span class="rule"></span></div>
       <h2 data-anim="fade-up" data-delay="1">A legume break <em>pays the farmer back.</em></h2>
