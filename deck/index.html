@@ -109,6 +109,7 @@ p { margin: 0; }
 
 /* === DASH LIST === */
 .dash { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.dash li span { display:block; }
 .dash li { display: grid; grid-template-columns: 52px 1fr; font-size: 28px; line-height: 1.5; }
 .dash li::before { content: "—"; font-family: var(--mono); color: var(--accent); }
 .light .dash li::before { color: var(--accent-light); }
@@ -125,6 +126,8 @@ p { margin: 0; }
 .tbl th { text-align: left; font: 300 17px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent-light); padding: 0 0 18px; border-bottom: 1px solid var(--fg-light); }
 .tbl td { font-size: 27px; line-height: 1.4; padding: 18px 40px 18px 0; border-bottom: 1px solid var(--border-light); }
 .tbl td:first-child { font-family: var(--serif); font-size: 31px; width: 640px; }
+.tbl4 td { font-size: 24px; padding: 16px 32px 16px 0; }
+.tbl4 td:first-child { font-size: 28px; width: 400px; }
 
 /* === CLOSING === */
 .cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 72px; }
@@ -190,48 +193,50 @@ p { margin: 0; }
     <div class="body">
       <div class="kick" data-anim="fade-in"><span class="kicker">The problem</span><span class="rule"></span></div>
       <h2 data-anim="fade-up" data-delay="1">Same field, same crop, <em>season after season.</em></h2>
-      <p class="lead" data-anim="fade-up" data-delay="2">Savanna smallholders plant maize on the same land year after year. The soil tires, Striga weed spreads and fertilizer keeps getting dearer, and no one tells the farmer what to change on their own plot.</p>
+      <p class="lead" data-anim="fade-up" data-delay="2">Savanna smallholders plant maize on the same land year after year. The soil tires, Striga weed spreads and fertilizer keeps getting dearer. Extension advice is generic, there are too few agents, and no one tells the farmer what to change on their own plot.</p>
       <div class="stats">
         <div class="stat" data-anim="fade-up" data-delay="3"><span class="stat-v">&lt;2 t/ha</span><span class="stat-l">Mean maize yield, Guinea savanna</span></div>
         <div class="stat" data-anim="fade-up" data-delay="4"><span class="stat-v">70–100%</span><span class="stat-l">Losses farmers report from Striga</span></div>
         <div class="stat" data-anim="fade-up" data-delay="5"><span class="stat-v">₦50,000+</span><span class="stat-l">One 50 kg bag of urea</span></div>
       </div>
+      <p class="small" data-anim="fade-in" data-delay="6">Who it hurts most: smallholders on 0.5 to 2 hectares in the northern and middle belt savanna, most with a basic phone and no data.</p>
     </div>
     <div class="foot"><span>Heliyon 2022 · Striga farmer surveys, N. Nigeria · market reports 2025–26</span><span>02 / 07</span></div>
   </div>
 </section>
 
-<!-- === SLIDE 3: HOW IT WORKS === -->
-<section class="slide" aria-label="How Rotawise works">
+<!-- === SLIDE 3: KEY INSIGHT + OUR SOLUTION === -->
+<section class="slide" aria-label="Key insight and our solution">
   <div class="frame">
-    <div class="chrome"><span>Rotawise</span><span>How it works</span></div>
+    <div class="chrome"><span>Rotawise</span><span>Insight · Solution</span></div>
     <div class="body">
-      <div class="kick" data-anim="fade-in"><span class="kicker">How it works</span><span class="rule"></span></div>
-      <h2 data-anim="fade-up" data-delay="1">We read each farm's history <em>from orbit.</em></h2>
+      <div class="kick" data-anim="fade-in"><span class="kicker">Key insight · Our solution</span><span class="rule"></span></div>
+      <h2 data-anim="fade-up" data-delay="1">Satellites already remember <em>every season on every plot.</em></h2>
+      <p class="lead" data-anim="fade-up" data-delay="2" style="font-size:27px;">Farmers rarely keep records, but NASA has watched each field every few days for years. Rotawise turns that memory into one rotation choice the farmer can act on.</p>
       <div class="steps">
-        <div class="step" data-anim="fade-up" data-delay="2"><span class="ord">01</span><h3>Field memory</h3><p>Every 30 m image since 2020 classes each season as cereal-like, legume-like or bare, with a confidence score.</p><span class="src">NASA HLS</span></div>
-        <div class="step" data-anim="fade-up" data-delay="3"><span class="ord">02</span><h3>Soil fatigue</h3><p>A 0 to 100 score from the run of cereal seasons, the greenness trend, and soil carbon, nitrogen and pH.</p><span class="src">NASA HLS · SoilGrids</span></div>
-        <div class="step" data-anim="fade-up" data-delay="4"><span class="ord">03</span><h3>Climate test</h3><p>Rain onset, dry spells and heat today, and season rain and hot days projected for the 2040s.</p><span class="src">NASA POWER · NEX-GDDP-CMIP6</span></div>
-        <div class="step" data-anim="fade-up" data-delay="5"><span class="ord">04</span><h3>Rotation choice</h3><p>The farmer's current rotation against three or more others, each with its reasons, evidence, naira, gaps and risks.</p><span class="src">Nigerian field trials</span></div>
+        <div class="step" data-anim="fade-up" data-delay="3"><span class="ord">01</span><h3>Field memory</h3><p>Each season since 2020 read as cereal like, legume like or bare, with a confidence score.</p><span class="src">NASA HLS</span></div>
+        <div class="step" data-anim="fade-up" data-delay="4"><span class="ord">02</span><h3>Soil fatigue</h3><p>A 0 to 100 score from the cereal run, the greenness trend and soil carbon, nitrogen and pH.</p><span class="src">NASA HLS · SoilGrids</span></div>
+        <div class="step" data-anim="fade-up" data-delay="5"><span class="ord">03</span><h3>Climate test</h3><p>Rain onset, dry spells and heat today, and rain and hot days projected for the 2040s.</p><span class="src">NASA POWER · NEX-GDDP-CMIP6</span></div>
+        <div class="step" data-anim="fade-up" data-delay="6"><span class="ord">04</span><h3>Rotation choice</h3><p>The current rotation against four others, each with reasons, evidence, naira, gaps and risks.</p><span class="src">Nigerian field trials</span></div>
       </div>
     </div>
-    <div class="foot"><span>Every number traces to a NASA dataset or a published trial</span><span>03 / 07</span></div>
+    <div class="foot"><span>No forms, no land records: the plot's history comes from orbit</span><span>03 / 07</span></div>
   </div>
 </section>
 
 <!-- === SLIDE 4: THE EXPERIENCE === -->
-<section class="slide" aria-label="What users get">
+<section class="slide" aria-label="The experience">
   <div class="frame">
-    <div class="chrome"><span>Rotawise</span><span>What users get</span></div>
+    <div class="chrome"><span>Rotawise</span><span>The experience</span></div>
     <div class="body">
       <div class="split">
         <div style="display:flex;flex-direction:column;gap:36px;">
-          <div class="kick" data-anim="fade-in"><span class="kicker">What users get</span><span class="rule"></span></div>
+          <div class="kick" data-anim="fade-in"><span class="kicker">The experience</span><span class="rule"></span></div>
           <h2 data-anim="fade-up" data-delay="1">One clear answer, <em>on any phone.</em></h2>
           <ul class="dash" data-anim="fade-up" data-delay="2">
-            <li>Farmers dial a USSD code and get advice in Hausa or English, no smartphone or data needed</li>
-            <li>Extension officers plan whole communities on a web dashboard with a map</li>
-            <li>Prices are editable, so the naira figures stay true to the local market</li>
+            <li><span><b style="font-weight:400;color:var(--fg)">Before</b> · Malam Musa in Zaria plans maize again, the fourth season in a row</span></li>
+            <li><span><b style="font-weight:400;color:var(--fg)">During</b> · He dials the short code, picks Hausa and his farm, and gets the reply below in seconds</span></li>
+            <li><span><b style="font-weight:400;color:var(--fg)">After</b> · His extension officer sees the same plan on the dashboard map and checks seed and soil phosphorus with him</span></li>
           </ul>
         </div>
         <div class="phone" data-anim="scale-in" data-delay="3">
@@ -241,60 +246,62 @@ p { margin: 0; }
         </div>
       </div>
     </div>
-    <div class="foot"><span>Live at rotawise-five.vercel.app</span><span>04 / 07</span></div>
+    <div class="foot"><span>Live at rotawise-five.vercel.app · farmer name is illustrative</span><span>04 / 07</span></div>
   </div>
 </section>
 
-<!-- === SLIDE 5: NASA DATA (light page) === -->
-<section class="slide light" aria-label="NASA data">
+<!-- === SLIDE 5: INCLUSIVE BY DESIGN (light page) === -->
+<section class="slide light" aria-label="Inclusive by design">
   <div class="frame">
-    <div class="chrome"><span>Rotawise</span><span>NASA data</span></div>
+    <div class="chrome"><span>Rotawise</span><span>Inclusive by design</span></div>
     <div class="body">
-      <div class="kick" data-anim="fade-in"><span class="kicker">The data</span><span class="rule" style="background:var(--accent-light)"></span></div>
-      <h2 data-anim="fade-up" data-delay="1">Built on open <em>NASA Earth observations.</em></h2>
-      <table class="tbl" data-anim="fade-up" data-delay="2">
-        <tr><th>Dataset</th><th>What it tells us</th></tr>
-        <tr><td>HLS L30 + S30</td><td>Season by season greenness of each plot since 2020 (includes ESA Sentinel 2)</td></tr>
-        <tr><td>NASA POWER</td><td>Season rain, rain onset, the longest dry spell, days above 35 °C</td></tr>
-        <tr><td>NEX-GDDP-CMIP6</td><td>Season rain and heat projected for the 2040s, two climate models</td></tr>
-        <tr><td>ESA WorldCover</td><td>Confirms every pilot point sits on real cropland</td></tr>
-        <tr><td>ISRIC SoilGrids</td><td>Soil organic carbon, nitrogen and pH</td></tr>
+      <div class="kick" data-anim="fade-in"><span class="kicker">Inclusive by design</span><span class="rule" style="background:var(--accent-light)"></span></div>
+      <h2 data-anim="fade-up" data-delay="1">Built for the farmer <em>most tools leave out.</em></h2>
+      <table class="tbl tbl4" data-anim="fade-up" data-delay="2">
+        <tr><th>Who could be excluded</th><th>The barrier</th><th>What we designed differently</th><th>How we validate</th></tr>
+        <tr><td>Farmers with basic phones</td><td>No smartphone, no data</td><td>USSD on any phone, replies under 182 characters</td><td>Field test in five LGAs</td></tr>
+        <tr><td>Farmers who don't read English</td><td>Language</td><td>Hausa and English now, Hausa voice next</td><td>Native speaker review of every message</td></tr>
+        <tr><td>Women and tenant farmers</td><td>No land papers or records</td><td>Plot history read from orbit, nothing to fill in</td><td>Pilot with women's cooperatives</td></tr>
+        <tr><td>Farmers on tiny mixed plots</td><td>30 m pixels can misread</td><td>Confidence on every season, farmer confirms</td><td>Test against labelled fields</td></tr>
       </table>
-      <p class="small" data-anim="fade-in" data-delay="3">Pulled for five pilot farms in Kaduna, Kano, Niger, Plateau and the FCT: 1,824 cloud free satellite readings, ten seasons of weather and 2040s projections. Four of the five show cereal planted season after season, with soil fatigue between 52 and 60.</p>
     </div>
-    <div class="foot"><span>Satellites remember every season so the farmer doesn't have to</span><span>05 / 07</span></div>
+    <div class="foot"><span>Free to the farmer · no app download · no sign up</span><span>05 / 07</span></div>
   </div>
 </section>
 
-<!-- === SLIDE 6: IMPACT === -->
-<section class="slide" aria-label="Impact per hectare">
+<!-- === SLIDE 6: IMPACT & FEASIBILITY === -->
+<section class="slide" aria-label="Impact and feasibility">
   <div class="num-wm" aria-hidden="true" style="bottom:90px;">₦</div>
   <div class="frame">
-    <div class="chrome"><span>Rotawise</span><span>Impact</span></div>
-    <div class="body">
-      <div class="kick" data-anim="fade-in"><span class="kicker">Impact per hectare</span><span class="rule"></span></div>
+    <div class="chrome"><span>Rotawise</span><span>Impact · Feasibility</span></div>
+    <div class="body" style="gap:34px;">
+      <div class="kick" data-anim="fade-in"><span class="kicker">Impact per hectare · Why it is feasible</span><span class="rule"></span></div>
       <h2 data-anim="fade-up" data-delay="1">A legume break <em>pays the farmer back.</em></h2>
       <div class="stats">
         <div class="stat" data-anim="fade-up" data-delay="2"><span class="stat-v">2.4 bags</span><span class="stat-l">Urea saved when soybean comes before maize · about ₦120,000</span></div>
         <div class="stat" data-anim="fade-up" data-delay="3"><span class="stat-v">+68%</span><span class="stat-l">Maize yield after soybean vs continuous maize</span></div>
         <div class="stat" data-anim="fade-up" data-delay="4"><span class="stat-v">−76%</span><span class="stat-l">Striga after two legume seasons</span></div>
       </div>
-      <p class="small" data-anim="fade-in" data-delay="5">Upper values for the northern Guinea savanna. Rotawise shows ranges by zone, so drier northern farms see the smaller gains they can really expect.</p>
+      <div class="cols" style="gap:56px;">
+        <div class="col" data-anim="fade-up" data-delay="5"><h3>Success looks like</h3><p>Farmers switching to a legume, urea bags saved, yield and Striga checked each season.</p></div>
+        <div class="col" data-anim="fade-up" data-delay="5"><h3>Feasible</h3><p>Open NASA data, no hardware, already live. Partners: ADP extension services, cooperatives, a USSD aggregator.</p></div>
+        <div class="col" data-anim="fade-up" data-delay="6"><h3>Risks</h3><p>Pixel limits on tiny plots, price swings, trust. Handled with confidence scores, editable prices, agent sign off.</p></div>
+      </div>
     </div>
-    <div class="foot"><span>NJSER 2008 · Yusuf et al. 2009 · Kureh, Kamara &amp; Tarfa 2006</span><span>06 / 07</span></div>
+    <div class="foot"><span>Upper values, N. Guinea savanna · NJSER 2008 · Yusuf et al. 2009 · Kureh et al. 2006</span><span>06 / 07</span></div>
   </div>
 </section>
 
-<!-- === SLIDE 7: CLOSING === -->
-<section class="slide cover" aria-label="Honest by design, and what's next">
+<!-- === SLIDE 7: PROTOTYPE, NEXT STEPS + THE ASK === -->
+<section class="slide cover" aria-label="Prototype, next steps and the ask">
   <div class="num-wm" aria-hidden="true">07</div>
   <div class="frame">
-    <div class="kick" data-anim="fade-in"><span class="kicker">Honest by design · What's next</span><span class="rule"></span></div>
-    <h1 data-anim="fade-up" data-delay="1">Built to support farmers, <em>not to guess for them.</em></h1>
+    <div class="kick" data-anim="fade-in"><span class="kicker">Prototype · Next steps · The ask</span><span class="rule"></span></div>
+    <h1 data-anim="fade-up" data-delay="1" style="font-size:88px;">Working today on <em>real NASA data.</em></h1>
     <div class="cols">
-      <div class="col" data-anim="fade-up" data-delay="2"><h3>Honest</h3><p>Season types, never crop names. A confidence score on every reading, and the farmer confirms past crops before acting.</p></div>
-      <div class="col" data-anim="fade-up" data-delay="3"><h3>Next</h3><p>Test against labelled fields, pilot with extension services in five LGAs, then add Hausa voice, Yoruba and Igbo.</p></div>
-      <div class="col" data-anim="fade-up" data-delay="4"><h3>Open</h3><p>Free and open source under Apache 2.0, ready for any West African farm NASA observes.</p></div>
+      <div class="col" data-anim="fade-up" data-delay="2"><h3>Built and tested</h3><p>Live dashboard, USSD in Hausa and English, open API. 1,824 satellite readings across five pilot farms: four show continuous cereal, with soil fatigue 52 to 60.</p></div>
+      <div class="col" data-anim="fade-up" data-delay="3"><h3>Next</h3><p>Check readings against labelled fields, pilot in five LGAs, add Hausa voice, Yoruba and Igbo. Long term, every West African plot NASA observes.</p></div>
+      <div class="col" data-anim="fade-up" data-delay="4"><h3>The ask</h3><p>Pilot access through state ADPs and cooperatives, labelled field data for testing, and a USSD short code partner.</p></div>
     </div>
     <p class="links" data-anim="fade-in" data-delay="5"><span>→</span> rotawise-five.vercel.app &nbsp;&nbsp; <span>→</span> github.com/Jothankato05/Rotawise</p>
   </div>
