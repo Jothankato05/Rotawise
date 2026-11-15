@@ -1,0 +1,771 @@
+{
+ "plot_id": "103",
+ "extracted_at": "2026-11-15T05:47:06+00:00",
+ "coords": {
+  "lat": 9.07279,
+  "lon": 6.02379
+ },
+ "cropland_check": {
+  "lat": 9.07279,
+  "lon": 6.02379,
+  "cropland_fraction": 1.0,
+  "distance_km": 1.87
+ },
+ "ndvi": [
+  {
+   "date": "2017-10-23",
+   "ndvi": 0.523,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2017-11-08",
+   "ndvi": 0.405,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2017-11-24",
+   "ndvi": 0.343,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2017-12-10",
+   "ndvi": 0.292,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2017-12-26",
+   "ndvi": 0.277,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2018-01-08",
+   "ndvi": 0.208,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2020-01-08",
+   "ndvi": 0.285,
+   "n_scenes": 4,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2020-01-24",
+   "ndvi": 0.269,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2020-02-09",
+   "ndvi": 0.242,
+   "n_scenes": 4,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2020-02-25",
+   "ndvi": 0.209,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2020-03-12",
+   "ndvi": 0.234,
+   "n_scenes": 3,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2020-03-28",
+   "ndvi": 0.238,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2020-04-13",
+   "ndvi": 0.238,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2020-04-29",
+   "ndvi": 0.255,
+   "n_scenes": 4,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2020-05-15",
+   "ndvi": 0.353,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2020-08-03",
+   "ndvi": 0.688,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2020-08-19",
+   "ndvi": 0.639,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2020-09-20",
+   "ndvi": 0.545,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2020-10-22",
+   "ndvi": 0.541,
+   "n_scenes": 4,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2020-11-07",
+   "ndvi": 0.449,
+   "n_scenes": 4,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2020-11-23",
+   "ndvi": 0.383,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2020-12-09",
+   "ndvi": 0.344,
+   "n_scenes": 5,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2020-12-25",
+   "ndvi": 0.313,
+   "n_scenes": 4,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2021-01-08",
+   "ndvi": 0.295,
+   "n_scenes": 4,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2021-01-24",
+   "ndvi": 0.268,
+   "n_scenes": 4,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2021-02-09",
+   "ndvi": 0.242,
+   "n_scenes": 3,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2021-02-25",
+   "ndvi": 0.23,
+   "n_scenes": 3,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2021-03-13",
+   "ndvi": 0.251,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2021-03-29",
+   "ndvi": 0.234,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2021-04-14",
+   "ndvi": 0.231,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2021-05-16",
+   "ndvi": 0.36,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2021-06-17",
+   "ndvi": 0.428,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2021-09-05",
+   "ndvi": 0.5,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2021-09-21",
+   "ndvi": 0.599,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2021-10-07",
+   "ndvi": 0.478,
+   "n_scenes": 3,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2021-10-23",
+   "ndvi": 0.534,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2021-11-08",
+   "ndvi": 0.451,
+   "n_scenes": 3,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2021-11-24",
+   "ndvi": 0.349,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2021-12-10",
+   "ndvi": 0.264,
+   "n_scenes": 7,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2021-12-26",
+   "ndvi": 0.269,
+   "n_scenes": 3,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2022-01-08",
+   "ndvi": 0.244,
+   "n_scenes": 6,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2022-01-24",
+   "ndvi": 0.228,
+   "n_scenes": 6,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2022-02-09",
+   "ndvi": 0.205,
+   "n_scenes": 5,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2022-02-25",
+   "ndvi": 0.203,
+   "n_scenes": 4,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2022-03-13",
+   "ndvi": 0.207,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2022-03-29",
+   "ndvi": 0.229,
+   "n_scenes": 3,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2022-04-14",
+   "ndvi": 0.273,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2022-04-30",
+   "ndvi": 0.273,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2022-05-16",
+   "ndvi": 0.335,
+   "n_scenes": 3,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2022-07-03",
+   "ndvi": 0.626,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2022-08-04",
+   "ndvi": 0.64,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2022-10-07",
+   "ndvi": 0.416,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2022-10-23",
+   "ndvi": 0.522,
+   "n_scenes": 5,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2022-11-08",
+   "ndvi": 0.548,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2022-11-24",
+   "ndvi": 0.366,
+   "n_scenes": 7,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2022-12-10",
+   "ndvi": 0.305,
+   "n_scenes": 5,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2022-12-26",
+   "ndvi": 0.272,
+   "n_scenes": 3,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2023-01-08",
+   "ndvi": 0.261,
+   "n_scenes": 4,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2023-01-24",
+   "ndvi": 0.261,
+   "n_scenes": 5,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2023-02-09",
+   "ndvi": 0.229,
+   "n_scenes": 4,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2023-02-25",
+   "ndvi": 0.164,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2023-03-13",
+   "ndvi": 0.234,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2023-03-29",
+   "ndvi": 0.239,
+   "n_scenes": 4,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2023-04-14",
+   "ndvi": 0.236,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2023-04-30",
+   "ndvi": 0.328,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2023-05-16",
+   "ndvi": 0.371,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2023-06-01",
+   "ndvi": 0.396,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2023-10-07",
+   "ndvi": 0.549,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2023-10-23",
+   "ndvi": 0.632,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2023-11-08",
+   "ndvi": 0.478,
+   "n_scenes": 3,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2023-11-24",
+   "ndvi": 0.368,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2023-12-10",
+   "ndvi": 0.284,
+   "n_scenes": 8,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2023-12-26",
+   "ndvi": 0.253,
+   "n_scenes": 5,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2024-01-08",
+   "ndvi": 0.24,
+   "n_scenes": 6,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2024-01-24",
+   "ndvi": 0.223,
+   "n_scenes": 6,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2024-02-09",
+   "ndvi": 0.161,
+   "n_scenes": 6,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2024-02-25",
+   "ndvi": 0.21,
+   "n_scenes": 3,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2024-03-12",
+   "ndvi": 0.209,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2024-03-28",
+   "ndvi": 0.212,
+   "n_scenes": 4,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2024-04-13",
+   "ndvi": 0.218,
+   "n_scenes": 3,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2024-05-15",
+   "ndvi": 0.276,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2024-05-31",
+   "ndvi": 0.306,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2024-06-16",
+   "ndvi": 0.445,
+   "n_scenes": 3,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2024-07-02",
+   "ndvi": 0.472,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2024-08-03",
+   "ndvi": 0.51,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2024-08-19",
+   "ndvi": 0.502,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2024-09-04",
+   "ndvi": 0.408,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2024-10-22",
+   "ndvi": 0.572,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2024-11-07",
+   "ndvi": 0.481,
+   "n_scenes": 6,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2024-11-23",
+   "ndvi": 0.326,
+   "n_scenes": 6,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2024-12-09",
+   "ndvi": 0.27,
+   "n_scenes": 6,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2024-12-25",
+   "ndvi": 0.24,
+   "n_scenes": 3,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2025-01-08",
+   "ndvi": 0.241,
+   "n_scenes": 7,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2025-01-24",
+   "ndvi": 0.224,
+   "n_scenes": 7,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2025-02-09",
+   "ndvi": 0.215,
+   "n_scenes": 6,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2025-02-25",
+   "ndvi": 0.184,
+   "n_scenes": 5,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2025-03-13",
+   "ndvi": 0.205,
+   "n_scenes": 4,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2025-03-29",
+   "ndvi": 0.206,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2025-04-14",
+   "ndvi": 0.242,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2025-05-16",
+   "ndvi": 0.29,
+   "n_scenes": 4,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2025-06-01",
+   "ndvi": 0.358,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2025-06-17",
+   "ndvi": 0.447,
+   "n_scenes": 3,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2025-07-03",
+   "ndvi": 0.453,
+   "n_scenes": 1,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2025-10-07",
+   "ndvi": 0.603,
+   "n_scenes": 2,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2025-11-08",
+   "ndvi": 0.482,
+   "n_scenes": 6,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2025-11-24",
+   "ndvi": 0.331,
+   "n_scenes": 6,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2025-12-10",
+   "ndvi": 0.279,
+   "n_scenes": 8,
+   "composite": "16-day median"
+  },
+  {
+   "date": "2025-12-26",
+   "ndvi": 0.263,
+   "n_scenes": 4,
+   "composite": "16-day median"
+  }
+ ],
+ "climate": {
+  "observed": [
+   {
+    "year": 2016,
+    "season_rain_mm": 959.5,
+    "onset_doy": 132,
+    "max_dry_spell_days": 7,
+    "heat_days": 10
+   },
+   {
+    "year": 2017,
+    "season_rain_mm": 905.9,
+    "onset_doy": 144,
+    "max_dry_spell_days": 5,
+    "heat_days": 1
+   },
+   {
+    "year": 2018,
+    "season_rain_mm": 943.4,
+    "onset_doy": 155,
+    "max_dry_spell_days": 5,
+    "heat_days": 2
+   },
+   {
+    "year": 2019,
+    "season_rain_mm": 1113.6,
+    "onset_doy": 134,
+    "max_dry_spell_days": 5,
+    "heat_days": 7
+   },
+   {
+    "year": 2020,
+    "season_rain_mm": 952.6,
+    "onset_doy": 150,
+    "max_dry_spell_days": 4,
+    "heat_days": 6
+   },
+   {
+    "year": 2021,
+    "season_rain_mm": 1133.7,
+    "onset_doy": 150,
+    "max_dry_spell_days": 5,
+    "heat_days": 26
+   },
+   {
+    "year": 2022,
+    "season_rain_mm": 862.9,
+    "onset_doy": 132,
+    "max_dry_spell_days": 7,
+    "heat_days": 8
+   },
+   {
+    "year": 2023,
+    "season_rain_mm": 946.5,
+    "onset_doy": 135,
+    "max_dry_spell_days": 3,
+    "heat_days": 14
+   },
+   {
+    "year": 2024,
+    "season_rain_mm": 811.1,
+    "onset_doy": 131,
+    "max_dry_spell_days": 7,
+    "heat_days": 24
+   },
+   {
+    "year": 2025,
+    "season_rain_mm": 606.2,
+    "onset_doy": 147,
+    "max_dry_spell_days": 5,
+    "heat_days": 22
+   }
+  ],
+  "cmip6": {
+   "models": [
+    "ACCESS-CM2",
+    "MRI-ESM2-0"
+   ],
+   "historical": {
+    "season_rain_mm": 1127.0,
+    "heat_days": 15.0
+   },
+   "ssp245_2040s": {
+    "season_rain_mm": 1187.0,
+    "heat_days": 29.2
+   },
+   "ssp585_2040s": {
+    "season_rain_mm": 1292.0,
+    "heat_days": 30.3
+   }
+  }
+ },
+ "soil": {
+  "organic_carbon_g_kg": null,
+  "nitrogen_total_g_kg": null,
+  "ph": null,
+  "phosphorus_ppm": null,
+  "depth": "0-30 cm, depth-weighted"
+ },
+ "n_raw_observations": 337,
+ "sources": {
+  "ndvi": "NASA HLS v2 HLSL30 + HLSS30 via Microsoft Planetary Computer; Fmask cloud-masked 3x3 pixel NDVI, 337 clear observations, stored as 16-day median composites",
+  "climate_observed": "NASA POWER daily agroclimatology (PRECTOTCORR, T2M_MAX)",
+  "projections": "NASA NEX-GDDP-CMIP6 (ACCESS-CM2, MRI-ESM2-0; 3 sample years per period)",
+  "soil": "ISRIC SoilGrids 2.0 (CC BY 4.0), 0-30 cm depth-weighted mean",
+  "cropland": "ESA WorldCover 10 m via Microsoft Planetary Computer (CC BY 4.0)"
+ }
+}

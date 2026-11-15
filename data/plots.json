@@ -1,10 +1,67 @@
 {
-  "_note": "Pilot plots. Coordinates are approximate LGA locations. Before running the pipeline, replace each with the centre of a real cultivated field (check in Google Earth Engine or Google Maps satellite view) and set coords_verified to true.",
+  "_note": "Pilot plots. Each point is a cropland block found automatically on ESA WorldCover 10 m near the LGA reference point (lga_lat, lga_lon).",
   "plots": [
-    { "id": "101", "name": "Zaria pilot farm", "lga": "Zaria", "state": "Kaduna", "lat": 11.085, "lon": 7.710, "area_ha": 0.5, "coords_verified": false },
-    { "id": "102", "name": "Dawakin Tofa pilot farm", "lga": "Dawakin Tofa", "state": "Kano", "lat": 12.100, "lon": 8.340, "area_ha": 0.5, "coords_verified": false },
-    { "id": "103", "name": "Bida pilot farm", "lga": "Bida", "state": "Niger", "lat": 9.080, "lon": 6.010, "area_ha": 0.5, "coords_verified": false },
-    { "id": "104", "name": "Bokkos pilot farm", "lga": "Bokkos", "state": "Plateau", "lat": 9.300, "lon": 8.980, "area_ha": 0.5, "coords_verified": false },
-    { "id": "105", "name": "Gwagwalada pilot farm", "lga": "Gwagwalada", "state": "FCT", "lat": 8.940, "lon": 7.080, "area_ha": 0.5, "coords_verified": false }
+    {
+      "id": "101",
+      "name": "Zaria pilot farm",
+      "lga": "Zaria",
+      "state": "Kaduna",
+      "lat": 11.08454,
+      "lon": 7.70388,
+      "area_ha": 0.5,
+      "coords_verified": true,
+      "lga_lat": 11.085,
+      "lga_lon": 7.71,
+      "coords_source": "ESA WorldCover cropland block (96% cropland), 0.74 km from the LGA reference point"
+    },
+    {
+      "id": "102",
+      "name": "Dawakin Tofa pilot farm",
+      "lga": "Dawakin Tofa",
+      "state": "Kano",
+      "lat": 12.10112,
+      "lon": 8.34054,
+      "area_ha": 0.5,
+      "coords_verified": true,
+      "lga_lat": 12.1,
+      "lga_lon": 8.34,
+      "coords_source": "ESA WorldCover cropland block (100% cropland), 0.15 km from the LGA reference point"
+    },
+    {
+      "id": "103",
+      "name": "Bida pilot farm",
+      "lga": "Bida",
+      "state": "Niger",
+      "lat": 9.07279,
+      "lon": 6.02379,
+      "area_ha": 0.5,
+      "coords_verified": true,
+      "lga_lat": 9.08,
+      "lga_lon": 6.01,
+      "coords_source": "ESA WorldCover cropland block (100% cropland), 1.87 km from the LGA reference point"
+    },
+    {
+      "id": "104",
+      "name": "Bokkos pilot farm",
+      "lga": "Bokkos",
+      "state": "Plateau",
+      "lat": 9.30121,
+      "lon": 8.98054,
+      "area_ha": 0.5,
+      "coords_verified": true,
+      "lga_lat": 9.3,
+      "lga_lon": 8.98,
+      "coords_source": "ESA WorldCover cropland block (100% cropland), 0.15 km from the LGA reference point"
+    },
+    {
+      "id": "105",
+      "name": "Gwagwalada pilot farm",
+      "lga": "Gwagwalada",
+      "state": "FCT",
+      "lat": 8.94,
+      "lon": 7.08,
+      "area_ha": 0.5,
+      "coords_verified": false
+    }
   ]
 }
