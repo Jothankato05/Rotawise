@@ -214,13 +214,13 @@ def _season(model: str, scen: str, var: str, year: int, lat: float, lon: float) 
     return [float(r[-1]) for r in rows[1:] if r and r[-1] not in ("", "NaN")]
 
 
-def cmip6(lat: float, lon: float, workers: int) -> dict:
-    tasks = [(m, k, s, y, v) for m in MODELS for k, (s, ys) in PERIODS.items() for y in ys for v in ("pr", "tasmax")]
+def cmip6(lat: float, lon: float, workers: int, n_years: int = 5) -> dict:
+    tasks = [(m, k, s, y, v) for m in MODELS for k, (s, ys) in PERIODS.items() for y in ys[::max(1, len(ys) // n_years)][:n_years] for v in ("pr", "tasmax")]
     for m in MODELS:  # fill the catalog cache sequentially to avoid racing threads
         for _, (s, _) in PERIODS.items():
             for v in ("pr", "tasmax"):
                 _files(m, s, v)
-    with cf.ThreadPoolExecutor(min(workers, 8)) as ex:
+    with cf.ThreadPoolExecutor(workers) as ex:
         res = list(ex.map(lambda t: (t, _safe(_season, t[0], t[2], t[4], t[3], lat, lon)), tasks))
     out: dict = {"models": MODELS, "source": "NASA NEX-GDDP-CMIP6 via NCCS THREDDS, May to October"}
     for k in PERIODS:
@@ -243,6 +243,8 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--plot")
     ap.add_argument("--workers", type=int, default=16)
+    ap.add_argument("--cmip-workers", type=int, default=4, help="NCCS THREDDS returns 503 under heavy parallel load")
+    ap.add_argument("--cmip-years", type=int, default=5)
     args = ap.parse_args(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(message)s")
     logging.getLogger("httpx").setLevel(logging.WARNING)
@@ -273,8 +275,8 @@ def main(argv=None) -> int:
         out["sources"]["climate_observed"] = "NASA POWER daily agroclimatology (PRECTOTCORR, T2M_MAX)"
 
         log.info("[%s] CMIP6", p["id"])
-        out["climate"]["cmip6"] = cmip6(lat, lon, args.workers)
-        out["sources"]["projections"] = "NASA NEX-GDDP-CMIP6 (ACCESS-CM2, MRI-ESM2-0; 5 sample years per period)"
+        out["climate"]["cmip6"] = cmip6(lat, lon, args.cmip_workers, args.cmip_years)
+        out["sources"]["projections"] = f"NASA NEX-GDDP-CMIP6 (ACCESS-CM2, MRI-ESM2-0; {args.cmip_years} sample years per period)"
 
         log.info("[%s] SoilGrids", p["id"])
         out["soil"] = _safe(soilgrids, lat, lon)
