@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rotawise · NASA Space Apps 2026</title>
+<meta name="description" content="Rotawise: field memory from NASA satellites. Crop rotation advice for Nigerian smallholder farms, on any phone.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Jost:wght@300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+/* ===========================================
+   FIXED 16:9 STAGE: MANDATORY BASE STYLES
+   (frontend-slides viewport-base.css, included in full)
+   =========================================== */
+html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: var(--stage-bg, #000); }
+.deck-viewport { position: fixed; inset: 0; overflow: hidden; background: var(--stage-bg, #000); }
+.deck-stage { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; overflow: hidden; transform-origin: 0 0; background: var(--slide-bg, #fff); }
+.slide { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: hidden; display: block; visibility: hidden; opacity: 0; pointer-events: none; background: var(--slide-bg, #fff); }
+.slide.active, .slide.visible { visibility: visible; opacity: 1; pointer-events: auto; z-index: 1; }
+img, video, canvas, svg { max-width: 100%; max-height: 100%; }
+.deck-controls { position: fixed; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 1000; }
+@media print {
+  html, body { width: 1920px; height: auto; overflow: visible; background: #fff; }
+  .deck-viewport { position: static; overflow: visible; background: #fff; }
+  .deck-stage { position: static; width: auto; height: auto; transform: none !important; background: none; }
+  .slide { position: relative; display: block !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; width: 1920px; height: 1080px; break-after: page; page-break-after: always; }
+  .slide:last-child { break-after: auto; page-break-after: auto; }
+  .deck-controls { display: none !important; }
+  [data-anim] { opacity: 1 !important; transform: none !important; clip-path: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
+}
+
+/* === THEME TOKENS (Grove) === */
+:root {
+  --stage-bg: #0f1a10;
+  --bg: #192b1b; --bg-alt: #1e3221; --bg-light: #e8e4d6;
+  --fg: #d4cfbf; --fg-2: rgba(212,207,191,.66); --fg-3: rgba(212,207,191,.34);
+  --fg-light: #192b1b; --fg-light-2: rgba(25,43,27,.66);
+  --accent: #c8524a; --accent-light: #b2453e;
+  --border: rgba(212,207,191,.14); --border-light: rgba(25,43,27,.16);
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Jost', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --pad-x: 154px; --pad-y: 72px;
+  --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* === SLIDE SURFACES === */
+.slide { --slide-bg: var(--bg); background: var(--bg); color: var(--fg); font-family: var(--sans); font-weight: 300; }
+.slide.light { --slide-bg: var(--bg-light); background: var(--bg-light); color: var(--fg-light); }
+.frame { position: absolute; inset: 0; padding: var(--pad-y) var(--pad-x); display: flex; flex-direction: column; }
+
+/* === CHROME: top and foot hairline bars === */
+.chrome, .foot { display: flex; justify-content: space-between; font: 300 17px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--fg-2); }
+.chrome { padding-bottom: 22px; border-bottom: 1px solid var(--border); }
+.foot { padding-top: 22px; border-top: 1px solid var(--border); margin-top: auto; }
+.light .chrome, .light .foot { color: var(--fg-light-2); border-color: var(--border-light); }
+.body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 40px; padding: 36px 0; }
+
+/* === TYPE === */
+h1, h2, h3, .stat-v, .num-wm { font-family: var(--serif); font-weight: 400; margin: 0; letter-spacing: -0.01em; }
+h1 em, h2 em, h3 em { font-style: italic; color: var(--accent); }
+.light h1 em, .light h2 em { color: var(--accent-light); }
+.display { font-size: 192px; line-height: 1; }
+h1 { font-size: 104px; line-height: 1.08; }
+h2 { font-size: 66px; line-height: 1.14; }
+h3 { font-size: 38px; line-height: 1.25; }
+p { margin: 0; }
+.lead { font-size: 31px; line-height: 1.6; color: var(--fg-2); max-width: 1320px; }
+.light .lead { color: var(--fg-light-2); }
+.kick { display: flex; flex-direction: column; gap: 18px; }
+.kicker { font: 300 19px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.light .kicker { color: var(--accent-light); }
+.rule { width: 36px; height: 1px; background: var(--accent); }
+.small { font-size: 23px; line-height: 1.55; color: var(--fg-2); }
+.light .small { color: var(--fg-light-2); }
+.mono { font-family: var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+
+/* === WATERMARK NUMERAL === */
+.num-wm { position: absolute; right: var(--pad-x); bottom: -60px; font-size: 360px; line-height: 1; color: rgba(212,207,191,.06); pointer-events: none; }
+.light .num-wm { color: rgba(25,43,27,.06); }
+
+/* === COVER === */
+.cover .frame { justify-content: space-between; }
+.cover .tag { font-family: var(--serif); font-style: italic; font-size: 54px; color: var(--accent); margin-top: 18px; }
+.cover .meta { display: flex; gap: 56px; font: 300 19px/1.6 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--fg-2); }
+.cover .meta b { display: block; font-weight: 300; color: var(--fg); }
+.orbit { position: absolute; right: 140px; top: 120px; width: 560px; height: 560px; opacity: .9; }
+
+/* === STATS === */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 72px; }
+.stat { display: flex; flex-direction: column; gap: 18px; padding-bottom: 28px; border-bottom: 1px solid var(--border); }
+.light .stat { border-color: var(--border-light); }
+.stat-v { font-size: 86px; line-height: 1; color: var(--accent); letter-spacing: -0.02em; }
+.light .stat-v { color: var(--accent-light); }
+.stat-l { font: 300 18px/1.6 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--fg-2); }
+.light .stat-l { color: var(--fg-light-2); }
+
+/* === STEPS (how it works) === */
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--border); }
+.step { padding: 36px 40px 0 0; display: flex; flex-direction: column; gap: 16px; }
+.step + .step { padding-left: 40px; border-left: 1px solid var(--border); }
+.step .ord { font: 300 18px/1 var(--mono); letter-spacing: .2em; color: var(--accent); }
+.step p { font-size: 24px; line-height: 1.6; color: var(--fg-2); }
+.step .src { font: 300 16px/1.5 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--fg); }
+
+/* === DASH LIST === */
+.dash { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.dash li { display: grid; grid-template-columns: 52px 1fr; font-size: 28px; line-height: 1.5; }
+.dash li::before { content: "—"; font-family: var(--mono); color: var(--accent); }
+.light .dash li::before { color: var(--accent-light); }
+
+/* === EXPERIENCE: phone === */
+.split { display: grid; grid-template-columns: 1fr 560px; gap: 120px; align-items: center; }
+.phone { background: #10180f; border: 1px solid var(--border); padding: 40px 34px 34px; }
+.phone .bar { font: 300 15px/1 var(--mono); letter-spacing: .14em; color: var(--fg-3); text-transform: uppercase; display: flex; justify-content: space-between; margin-bottom: 22px; }
+.screen { background: #c9d6b8; color: #1d2414; padding: 30px; font: 400 24px/1.45 var(--mono); }
+.phone .cap { margin-top: 18px; font: 300 16px/1.5 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--fg-3); }
+
+/* === DATA TABLE === */
+.tbl { width: 100%; border-collapse: collapse; }
+.tbl th { text-align: left; font: 300 17px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent-light); padding: 0 0 18px; border-bottom: 1px solid var(--fg-light); }
+.tbl td { font-size: 27px; line-height: 1.4; padding: 18px 40px 18px 0; border-bottom: 1px solid var(--border-light); }
+.tbl td:first-child { font-family: var(--serif); font-size: 31px; width: 640px; }
+
+/* === CLOSING === */
+.cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 72px; }
+.col { display: flex; flex-direction: column; gap: 16px; padding-top: 28px; border-top: 1px solid var(--border); }
+.col p { font-size: 25px; line-height: 1.6; color: var(--fg-2); }
+.links { font: 300 21px/1.6 var(--mono); letter-spacing: .1em; color: var(--fg); }
+.links span { color: var(--accent); }
+
+/* === ENTRANCE ANIMATION SYSTEM: [data-anim] + [data-delay] === */
+[data-anim] { opacity: 0; transition: opacity .7s var(--ease-enter), transform .7s var(--ease-enter), clip-path .9s var(--ease-enter); }
+[data-anim="fade-up"] { transform: translateY(28px); }
+[data-anim="scale-in"] { transform: scale(.94); }
+.slide.active [data-anim] { opacity: 1; transform: none; clip-path: inset(0 0 0 0); }
+[data-delay="1"] { transition-delay: .08s; } [data-delay="2"] { transition-delay: .18s; }
+[data-delay="3"] { transition-delay: .3s; }  [data-delay="4"] { transition-delay: .44s; }
+[data-delay="5"] { transition-delay: .6s; }  [data-delay="6"] { transition-delay: .78s; }
+.orbit .arc { stroke-dasharray: 520; stroke-dashoffset: 520; transition: stroke-dashoffset 1.6s var(--ease-enter) .4s; }
+.slide.active .orbit .arc { stroke-dashoffset: 0; }
+
+/* === NAV DOTS + EDIT (outside the slide design) === */
+.dots { display: flex; gap: 12px; }
+.dots button { width: 7px; height: 7px; padding: 0; border: 0; border-radius: 50%; background: rgba(128,128,128,.45); cursor: pointer; transition: transform .3s, background .3s; }
+.dots button.on { background: #c8524a; transform: scale(1.4); }
+.edit-hotzone { position: fixed; top: 0; left: 0; width: 80px; height: 80px; z-index: 10000; }
+.edit-toggle { position: fixed; top: 16px; left: 16px; opacity: 0; pointer-events: none; transition: opacity .3s; z-index: 10001; background: #e8e4d6; border: 0; padding: 8px 12px; font: 13px var(--mono); cursor: pointer; }
+.edit-toggle.show, .edit-toggle.active { opacity: 1; pointer-events: auto; }
+[contenteditable="true"]:focus { outline: 1px dashed var(--accent); }
+</style>
+</head>
+<body>
+<div class="deck-viewport">
+<main class="deck-stage" id="deckStage">
+
+<!-- === SLIDE 1: COVER === -->
+<section class="slide cover active" aria-label="Rotawise">
+  <svg class="orbit" viewBox="0 0 200 200" aria-hidden="true">
+    <circle cx="100" cy="100" r="92" fill="none" stroke="rgba(212,207,191,.14)" stroke-width="1"/>
+    <circle cx="100" cy="100" r="62" fill="none" stroke="rgba(212,207,191,.10)" stroke-width="1"/>
+    <path class="arc" d="M100 8 A92 92 0 0 1 192 100" fill="none" stroke="#c8524a" stroke-width="1.6"/>
+    <path class="arc" d="M100 192 A92 92 0 0 1 8 100" fill="none" stroke="#d4cfbf" stroke-width="1.6"/>
+    <circle cx="192" cy="100" r="3.2" fill="#c8524a"/>
+    <circle cx="100" cy="100" r="5" fill="#d4cfbf"/>
+  </svg>
+  <div class="frame">
+    <div class="kick" data-anim="fade-in"><span class="kicker">NASA Space Apps Challenge 2026 · Field Shift</span><span class="rule"></span></div>
+    <div>
+      <h1 class="display" data-anim="fade-up" data-delay="1">Rotawise</h1>
+      <p class="tag" data-anim="fade-up" data-delay="2">Field memory from NASA satellites</p>
+    </div>
+    <div class="meta" data-anim="fade-in" data-delay="4">
+      <div>Team<b>Rotawise</b></div>
+      <div>Local event<b>Abuja, Nigeria</b></div>
+      <div>Team lead<b>Jothan Kato</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- === SLIDE 2: THE PROBLEM === -->
+<section class="slide" aria-label="The problem">
+  <div class="frame">
+    <div class="chrome"><span>Rotawise</span><span>The problem</span></div>
+    <div class="body">
+      <div class="kick" data-anim="fade-in"><span class="kicker">The problem</span><span class="rule"></span></div>
+      <h2 data-anim="fade-up" data-delay="1">Same field, same crop, <em>season after season.</em></h2>
+      <p class="lead" data-anim="fade-up" data-delay="2">Savanna smallholders plant maize on the same land year after year. The soil tires, Striga weed spreads and fertilizer keeps getting dearer, and no one tells the farmer what to change on their own plot.</p>
+      <div class="stats">
+        <div class="stat" data-anim="fade-up" data-delay="3"><span class="stat-v">&lt;2 t/ha</span><span class="stat-l">Mean maize yield, Guinea savanna</span></div>
+        <div class="stat" data-anim="fade-up" data-delay="4"><span class="stat-v">70–100%</span><span class="stat-l">Losses farmers report from Striga</span></div>
+        <div class="stat" data-anim="fade-up" data-delay="5"><span class="stat-v">₦50,000+</span><span class="stat-l">One 50 kg bag of urea</span></div>
+      </div>
+    </div>
+    <div class="foot"><span>Heliyon 2022 · Striga farmer surveys, N. Nigeria · market reports 2025–26</span><span>02 / 07</span></div>
+  </div>
+</section>
+
+<!-- === SLIDE 3: HOW IT WORKS === -->
+<section class="slide" aria-label="How Rotawise works">
+  <div class="frame">
+    <div class="chrome"><span>Rotawise</span><span>How it works</span></div>
+    <div class="body">
+      <div class="kick" data-anim="fade-in"><span class="kicker">How it works</span><span class="rule"></span></div>
+      <h2 data-anim="fade-up" data-delay="1">We read each farm's history <em>from orbit.</em></h2>
+      <div class="steps">
+        <div class="step" data-anim="fade-up" data-delay="2"><span class="ord">01</span><h3>Field memory</h3><p>Every 30 m image since 2020 classes each season as cereal-like, legume-like or bare, with a confidence score.</p><span class="src">NASA HLS</span></div>
+        <div class="step" data-anim="fade-up" data-delay="3"><span class="ord">02</span><h3>Soil fatigue</h3><p>A 0 to 100 score from the run of cereal seasons, the greenness trend, and soil carbon, nitrogen and pH.</p><span class="src">NASA HLS · SoilGrids</span></div>
+        <div class="step" data-anim="fade-up" data-delay="4"><span class="ord">03</span><h3>Climate test</h3><p>Rain onset, dry spells and heat today, and season rain and hot days projected for the 2040s.</p><span class="src">NASA POWER · NEX-GDDP-CMIP6</span></div>
+        <div class="step" data-anim="fade-up" data-delay="5"><span class="ord">04</span><h3>Rotation choice</h3><p>The farmer's current rotation against three or more others, each with its reasons, evidence, naira, gaps and risks.</p><span class="src">Nigerian field trials</span></div>
+      </div>
+    </div>
+    <div class="foot"><span>Every number traces to a NASA dataset or a published trial</span><span>03 / 07</span></div>
+  </div>
+</section>
+
+<!-- === SLIDE 4: THE EXPERIENCE === -->
+<section class="slide" aria-label="What users get">
+  <div class="frame">
+    <div class="chrome"><span>Rotawise</span><span>What users get</span></div>
+    <div class="body">
+      <div class="split">
+        <div style="display:flex;flex-direction:column;gap:36px;">
+          <div class="kick" data-anim="fade-in"><span class="kicker">What users get</span><span class="rule"></span></div>
+          <h2 data-anim="fade-up" data-delay="1">One clear answer, <em>on any phone.</em></h2>
+          <ul class="dash" data-anim="fade-up" data-delay="2">
+            <li>Farmers dial a USSD code and get advice in Hausa or English, no smartphone or data needed</li>
+            <li>Extension officers plan whole communities on a web dashboard with a map</li>
+            <li>Prices are editable, so the naira figures stay true to the local market</li>
+          </ul>
+        </div>
+        <div class="phone" data-anim="scale-in" data-delay="3">
+          <div class="bar"><span>USSD</span><span>Rotawise</span></div>
+          <div class="screen">Plant SOYBEAN next season, then maize. Saves 0.6-2.4 bags urea/ha (N30-N120k). Cuts Striga up to 76%. Confirm with your extension agent.</div>
+          <p class="cap">Live reply · Zaria pilot farm · urea ₦50,000/bag</p>
+        </div>
+      </div>
+    </div>
+    <div class="foot"><span>Live at rotawise-five.vercel.app</span><span>04 / 07</span></div>
+  </div>
+</section>
+
+<!-- === SLIDE 5: NASA DATA (light page) === -->
+<section class="slide light" aria-label="NASA data">
+  <div class="frame">
+    <div class="chrome"><span>Rotawise</span><span>NASA data</span></div>
+    <div class="body">
+      <div class="kick" data-anim="fade-in"><span class="kicker">The data</span><span class="rule" style="background:var(--accent-light)"></span></div>
+      <h2 data-anim="fade-up" data-delay="1">Built on open <em>NASA Earth observations.</em></h2>
+      <table class="tbl" data-anim="fade-up" data-delay="2">
+        <tr><th>Dataset</th><th>What it tells us</th></tr>
+        <tr><td>HLS L30 + S30</td><td>Season by season greenness of each plot since 2020 (includes ESA Sentinel 2)</td></tr>
+        <tr><td>NASA POWER</td><td>Season rain, rain onset, the longest dry spell, days above 35 °C</td></tr>
+        <tr><td>NEX-GDDP-CMIP6</td><td>Season rain and heat projected for the 2040s, two climate models</td></tr>
+        <tr><td>ESA WorldCover</td><td>Confirms every pilot point sits on real cropland</td></tr>
+        <tr><td>ISRIC SoilGrids</td><td>Soil organic carbon, nitrogen and pH</td></tr>
+      </table>
+      <p class="small" data-anim="fade-in" data-delay="3">Pulled for five pilot farms in Kaduna, Kano, Niger, Plateau and the FCT: 1,824 cloud free satellite readings, ten seasons of weather and 2040s projections. Four of the five show cereal planted season after season, with soil fatigue between 52 and 60.</p>
+    </div>
+    <div class="foot"><span>Satellites remember every season so the farmer doesn't have to</span><span>05 / 07</span></div>
+  </div>
+</section>
+
+<!-- === SLIDE 6: IMPACT === -->
+<section class="slide" aria-label="Impact per hectare">
+  <div class="num-wm" aria-hidden="true" style="bottom:90px;">₦</div>
+  <div class="frame">
+    <div class="chrome"><span>Rotawise</span><span>Impact</span></div>
+    <div class="body">
+      <div class="kick" data-anim="fade-in"><span class="kicker">Impact per hectare</span><span class="rule"></span></div>
+      <h2 data-anim="fade-up" data-delay="1">A legume break <em>pays the farmer back.</em></h2>
+      <div class="stats">
+        <div class="stat" data-anim="fade-up" data-delay="2"><span class="stat-v">2.4 bags</span><span class="stat-l">Urea saved when soybean comes before maize · about ₦120,000</span></div>
+        <div class="stat" data-anim="fade-up" data-delay="3"><span class="stat-v">+68%</span><span class="stat-l">Maize yield after soybean vs continuous maize</span></div>
+        <div class="stat" data-anim="fade-up" data-delay="4"><span class="stat-v">−76%</span><span class="stat-l">Striga after two legume seasons</span></div>
+      </div>
+      <p class="small" data-anim="fade-in" data-delay="5">Upper values for the northern Guinea savanna. Rotawise shows ranges by zone, so drier northern farms see the smaller gains they can really expect.</p>
+    </div>
+    <div class="foot"><span>NJSER 2008 · Yusuf et al. 2009 · Kureh, Kamara &amp; Tarfa 2006</span><span>06 / 07</span></div>
+  </div>
+</section>
+
+<!-- === SLIDE 7: CLOSING === -->
+<section class="slide cover" aria-label="Honest by design, and what's next">
+  <div class="num-wm" aria-hidden="true">07</div>
+  <div class="frame">
+    <div class="kick" data-anim="fade-in"><span class="kicker">Honest by design · What's next</span><span class="rule"></span></div>
+    <h1 data-anim="fade-up" data-delay="1">Built to support farmers, <em>not to guess for them.</em></h1>
+    <div class="cols">
+      <div class="col" data-anim="fade-up" data-delay="2"><h3>Honest</h3><p>Season types, never crop names. A confidence score on every reading, and the farmer confirms past crops before acting.</p></div>
+      <div class="col" data-anim="fade-up" data-delay="3"><h3>Next</h3><p>Test against labelled fields, pilot with extension services in five LGAs, then add Hausa voice, Yoruba and Igbo.</p></div>
+      <div class="col" data-anim="fade-up" data-delay="4"><h3>Open</h3><p>Free and open source under Apache 2.0, ready for any West African farm NASA observes.</p></div>
+    </div>
+    <p class="links" data-anim="fade-in" data-delay="5"><span>→</span> rotawise-five.vercel.app &nbsp;&nbsp; <span>→</span> github.com/Jothankato05/Rotawise</p>
+  </div>
+</section>
+
+</main>
+</div>
+
+<nav class="deck-controls"><div class="dots" id="dots"></div></nav>
+<div class="edit-hotzone"></div>
+<button class="edit-toggle" id="editToggle" title="Edit mode (E)">EDIT</button>
+
+<script>
+/* === DECK CONTROLLER: fixed-stage scaling + navigation === */
+class Deck {
+  constructor() {
+    this.stage = document.getElementById('deckStage');
+    this.slides = [...document.querySelectorAll('.slide')];
+    this.i = 0;
+    this.dots = document.getElementById('dots');
+    this.slides.forEach((_, n) => {
+      const b = document.createElement('button');
+      b.setAttribute('aria-label', 'Go to slide ' + (n + 1));
+      b.addEventListener('click', () => this.go(n));
+      this.dots.appendChild(b);
+    });
+    const scale = () => {
+      const f = Math.min(innerWidth / 1920, innerHeight / 1080);
+      const x = (innerWidth - 1920 * f) / 2, y = (innerHeight - 1080 * f) / 2;
+      this.stage.style.transform = `translate(${x}px, ${y}px) scale(${f})`;
+    };
+    scale(); addEventListener('resize', scale);
+    document.addEventListener('keydown', (e) => {
+      if (e.target.isContentEditable) return;
+      if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].includes(e.key)) { e.preventDefault(); this.go(this.i + 1); }
+      if (['ArrowLeft', 'ArrowUp', 'PageUp'].includes(e.key)) { e.preventDefault(); this.go(this.i - 1); }
+      if (e.key === 'Home') this.go(0);
+      if (e.key === 'End') this.go(this.slides.length - 1);
+    });
+    let sx = null;
+    addEventListener('touchstart', (e) => { sx = e.touches[0].clientX; }, { passive: true });
+    addEventListener('touchend', (e) => {
+      if (sx === null) return;
+      const dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 40) this.go(this.i + (dx < 0 ? 1 : -1));
+      sx = null;
+    });
+    document.querySelector('.deck-stage').addEventListener('click', (e) => {
+      if (editor.isActive || e.target.closest('a,button')) return;
+      this.go(this.i + 1);
+    });
+    const h = parseInt(location.hash.replace('#', ''), 10);
+    this.go(Number.isFinite(h) ? h - 1 : 0, true);
+  }
+  go(n, first) {
+    n = Math.max(0, Math.min(this.slides.length - 1, n));
+    if (n === this.i && !first) return;
+    this.slides[this.i].classList.remove('active');
+    this.i = n;
+    const s = this.slides[n];
+    void s.offsetWidth;
+    s.classList.add('active');
+    [...this.dots.children].forEach((d, k) => d.classList.toggle('on', k === n));
+    history.replaceState(null, '', '#' + (n + 1));
+  }
+}
+/* === INLINE EDITING: hover top-left or press E === */
+const editor = {
+  isActive: false,
+  toggleEditMode() {
+    this.isActive = !this.isActive;
+    document.querySelectorAll('.slide h1, .slide h2, .slide h3, .slide p, .slide li, .slide td, .slide .stat-v, .slide .stat-l, .slide .screen, .slide .meta b')
+      .forEach((el) => el.setAttribute('contenteditable', String(this.isActive)));
+    btn.classList.toggle('active', this.isActive);
+    btn.textContent = this.isActive ? 'DONE' : 'EDIT';
+  },
+};
+const btn = document.getElementById('editToggle');
+const deck = new Deck();
+const hot = document.querySelector('.edit-hotzone');
+let hideT;
+hot.addEventListener('mouseenter', () => { clearTimeout(hideT); btn.classList.add('show'); });
+hot.addEventListener('mouseleave', () => { hideT = setTimeout(() => { if (!editor.isActive) btn.classList.remove('show'); }, 400); });
+btn.addEventListener('mouseenter', () => clearTimeout(hideT));
+btn.addEventListener('click', () => editor.toggleEditMode());
+document.addEventListener('keydown', (e) => {
+  if ((e.key === 'e' || e.key === 'E') && !e.target.isContentEditable) editor.toggleEditMode();
+});
+</script>
+</body>
+</html>
