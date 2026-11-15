@@ -215,7 +215,10 @@ def _season(model: str, scen: str, var: str, year: int, lat: float, lon: float) 
 
 
 def cmip6(lat: float, lon: float, workers: int, n_years: int = 5) -> dict:
-    tasks = [(m, k, s, y, v) for m in MODELS for k, (s, ys) in PERIODS.items() for y in ys[::max(1, round((len(ys) - 1) / max(1, n_years - 1)))][:n_years] for v in ("pr", "tasmax")]
+    def sample(ys: list[int]) -> list[int]:
+        return ys[::max(1, round((len(ys) - 1) / max(1, n_years - 1)))][:n_years]
+
+    tasks = [(m, k, s, y, v) for m in MODELS for k, (s, ys) in PERIODS.items() for y in sample(ys) for v in ("pr", "tasmax")]
     for m in MODELS:  # fill the catalog cache sequentially to avoid racing threads
         for _, (s, _) in PERIODS.items():
             for v in ("pr", "tasmax"):

@@ -89,3 +89,16 @@ def test_missing_data_raises(data_dir):
     import pytest
     with pytest.raises(DataNotIngested):
         analyze("102")
+
+
+def test_half_observed_season_is_unknown(cfg):
+    obs = [o for o in season_curve(2020, 0.22, 0.75, 150, 130) if o["date"] >= "2020-08-01"]
+    assert field_memory(obs, cfg["phenology"])[0].season_class == "unknown"
+
+
+def test_rain_outlier_years_are_excluded():
+    from rotawise.engine.climate import summarize
+    obs = [{"year": y, "season_rain_mm": v} for y, v in zip(range(2016, 2022), [900, 950, 4200, 1000, 980, 300], strict=True)]
+    s = summarize({"observed": obs})
+    assert s["excluded_years"] == [2018, 2021]
+    assert s["observed"]["season_rain_mm_median"] == 965

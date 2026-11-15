@@ -76,7 +76,8 @@ def classify_season(
     start_m, end_m = cfg["season_start_month"], cfg["season_end_month"]
     pts = [(d, v) for d, v in series if d.year == year and start_m <= d.month <= end_m]
     n = len(pts)
-    if n < cfg["min_observations"]:
+    # Both ends of the season must be observed, or a half season is misread.
+    if n < cfg["min_observations"] or not any(d.month <= 6 for d, _ in pts) or not any(d.month >= 9 for d, _ in pts):
         return Season(year, "unknown", 0.0, n, None, None, None, None, None, None, [])
 
     dates = [d for d, _ in pts]
@@ -164,7 +165,7 @@ def current_rotation_label(seasons: list[Season], lookback: int = 4) -> dict[str
             run += 1
         else:
             break
-    if all(c == "cereal_like" for c in pattern):
+    if run >= 2 or all(c == "cereal_like" for c in pattern):
         rid = "continuous_cereal"
     elif "legume_or_short_cycle" in pattern and "cereal_like" in pattern:
         rid = "mixed_cereal_legume"

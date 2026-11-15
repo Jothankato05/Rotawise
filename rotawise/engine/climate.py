@@ -22,9 +22,15 @@ def summarize(climate: dict[str, Any] | None) -> dict[str, Any]:
 
     observed = climate.get("observed") or []
     imerg = climate.get("imerg_season_rain_mm") or []
-    rain_series = [r["mm"] for r in imerg if r.get("mm") is not None] or [
-        o["season_rain_mm"] for o in observed if o.get("season_rain_mm") is not None
+    raw = [(r.get("year"), r["mm"]) for r in imerg if r.get("mm") is not None] or [
+        (o.get("year"), o["season_rain_mm"]) for o in observed if o.get("season_rain_mm") is not None
     ]
+    # Quality check: a season more than twice, or under 40% of, the median is
+    # almost certainly a data error in the source product, not real weather.
+    first_med = _med([v for _, v in raw])
+    excluded = [y for y, v in raw if first_med and (v > 2 * first_med or v < 0.4 * first_med)]
+    clean = [(y, v) for y, v in raw if y not in excluded]
+    rain_series = [v for _, v in clean]
     rain_med = _med(rain_series)
     rain_cv = (pstdev(rain_series) / rain_med) if rain_med and len(rain_series) > 2 else None
     onset = _med([o.get("onset_doy") for o in observed])
@@ -42,8 +48,8 @@ def summarize(climate: dict[str, Any] | None) -> dict[str, Any]:
             "heat_days_median": round(heat) if heat is not None else None,
             "years": len(rain_series),
         },
-        "series": [{"year": r.get("year"), "mm": r.get("mm")} for r in imerg]
-        or [{"year": o.get("year"), "mm": o.get("season_rain_mm")} for o in observed],
+        "series": [{"year": y, "mm": v} for y, v in clean],
+        "excluded_years": excluded,
         "projections": {},
     }
 

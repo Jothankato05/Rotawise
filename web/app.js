@@ -110,7 +110,7 @@ function renderMemory(r) {
   const cur = r.field_memory.current;
   return `<div class="panel">
     <h3>Field memory</h3>
-    <p class="sub">${seasons.length} seasons of NASA HLS imagery, plot-mean NDVI. Bar under each year shows confidence.</p>
+    <p class="sub">${seasons.length} seasons of NASA HLS imagery (Landsat and Sentinel 2, 30 m), cloud-masked NDVI. The bar under each year shows confidence; grey years had too few clear images.</p>
     <div class="timeline">${chips || "<p>No clear seasons found.</p>"}</div>
     <div class="legend"><span><i class="c-cereal_like"></i>Cereal-like</span><span><i class="c-legume_or_short_cycle"></i>Legume or short cycle</span><span><i class="c-bare_or_fallow"></i>Bare or fallow</span><span><i class="c-unknown"></i>Too cloudy</span></div>
     <p>${cur.cereal_run >= 2 ? `<strong>${cur.cereal_run} cereal-like seasons in a row.</strong> ` : ""}${escapeHtml(bare)} Confirm past crops with the farmer before acting.</p>
@@ -125,7 +125,7 @@ function renderSoil(r) {
   return `<div class="panel">
     <h3>Soil fatigue</h3>
     <div class="gauge"><div class="num">${f.score}<span class="fine">/100</span></div><div class="bar"><i style="left:calc(${f.score}% - 2px)"></i></div></div>
-    <p class="sub">${escapeHtml(f.level)} pressure. From the season history, the greenness trend and iSDAsoil 0 to 20 cm.</p>
+    <p class="sub">${escapeHtml(f.level)} pressure. From the season history, the greenness trend and SoilGrids soil properties.</p>
     <ul class="drivers">${drivers}</ul>${gaps ? `<ul class="fine">${gaps}</ul>` : ""}
   </div>`;
 }
@@ -141,7 +141,7 @@ function renderClimate(r) {
   const o = c.observed;
   return `<div class="panel rain">
     <h3>Rain and heat</h3>
-    <p class="sub">May to October rainfall per year, ${escapeHtml(c.rain_source)}.</p>
+    <p class="sub">May to October rainfall per year, ${escapeHtml(c.rain_source)}.${c.excluded_years && c.excluded_years.length ? ` Left out as likely data errors: ${c.excluded_years.map(escapeHtml).join(", ")}.` : ""}</p>
     <svg viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Seasonal rainfall by year">${bars}</svg>
     <div class="kv">
       <div><b>${o.season_rain_mm_median ?? "n/a"} mm</b><span>Typical season rain</span></div>

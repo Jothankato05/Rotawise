@@ -77,7 +77,8 @@ def unpack(text: str, outdir: Path) -> list[str]:
         elif f[0] == "X":
             cur["n_raw_observations"] = int(f[1])
             cur["sources"] = {
-                "ndvi": f"NASA HLS v2 HLSL30 + HLSS30 via Microsoft Planetary Computer; Fmask cloud-masked 3x3 pixel NDVI, {f[1]} clear observations, stored as 16-day median composites",
+                "ndvi": (f"NASA HLS v2 HLSL30 + HLSS30 via Microsoft Planetary Computer; Fmask cloud-masked 3x3 pixel NDVI, "
+                         f"{f[1]} clear observations, stored as 16-day median composites"),
                 "climate_observed": "NASA POWER daily agroclimatology (PRECTOTCORR, T2M_MAX)",
                 "projections": f[2],
                 "soil": "ISRIC SoilGrids 2.0 (CC BY 4.0), 0-30 cm depth-weighted mean",

@@ -105,7 +105,7 @@ def fatigue_score(
                 "text": f"Soil pH {ph:.1f} (comfortable range {lo} to {hi})",
             })
     else:
-        gaps.append("No iSDAsoil data for this plot yet.")
+        gaps.append("No soil data for this plot yet.")
 
     value = round(100 * score / total_w) if total_w else None
     level = None
