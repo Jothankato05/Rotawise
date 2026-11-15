@@ -11,6 +11,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any
 
+from ..messages import m
 from .climate import water_fit
 
 
@@ -21,12 +22,11 @@ class Prices:
     baseline_maize_t_ha: float
 
 
-def zone_for(lat: float, cfg: dict[str, Any]) -> dict[str, str]:
-    for z in cfg["zones"]:  # ordered north to south
-        if lat >= z["min_lat"]:
-            return {"id": z["name"], "label": z["label"]}
-    last = cfg["zones"][-1]
-    return {"id": last["name"], "label": last["label"]}
+def zone_for(lat: float, cfg: dict[str, Any], lang: str = "en") -> dict[str, str]:
+    zones = cfg["zones"]  # ordered north to south
+    z = next((z for z in zones if lat >= z["min_lat"]), zones[-1])
+    label = m(lang, f"zone_{z['name']}") if lang != "en" else z["label"]
+    return {"id": z["name"], "label": label}
 
 
 def _rng(a: float, b: float, nd: int = 0) -> list[float]:
@@ -86,7 +86,8 @@ def compare(
 ) -> dict[str, Any]:
     crops = cfg["crops"]
     sources = cfg["sources"]
-    zone = zone_for(plot["lat"], cfg)
+    zone = zone_for(plot["lat"], cfg, lang)
+    label = lambda c: crops[c]["label"].get(lang, crops[c]["label"]["en"])  # noqa: E731
     area = float(plot.get("area_ha") or 1.0)
     proj = (climate.get("projections") or {}).get("ssp245_2040s")
     obs_rain = (climate.get("observed") or {}).get("season_rain_mm_median")
@@ -125,48 +126,48 @@ def compare(
         why: list[str] = []
         if is_current:
             pattern = memory["current"]["pattern"]
-            why.append(f"This is what the satellite record suggests the plot has been doing: {', '.join(p.replace('_', ' ') for p in pattern) or 'not enough clear seasons'}.")
+            why.append(m(lang, "why_current", pattern=", ".join(m(lang, f"cls_{p}") for p in pattern) or m(lang, "why_current_none")))
             if cereal_run >= 2:
-                why.append(f"{cereal_run} cereal-like seasons in a row keeps drawing down nitrogen and lets Striga seed build up in the soil.")
+                why.append(m(lang, "why_cereal_run", n=cereal_run))
         else:
             if legume:
-                why.append(f"{crops[legume]['label']['en']} adds nitrogen for the next maize crop and breaks the Striga cycle.")
+                why.append(m(lang, "why_legume", crop=label(legume)))
             if fatigue_score is not None and fatigue_score >= 35:
-                why.append(f"Soil fatigue on this plot is {fatigue_score}/100, so a legume break is worth more here than on a rested field.")
+                why.append(m(lang, "why_fatigue", score=fatigue_score))
         if worst_fut is not None and proj:
-            why.append(f"Projected 2040s season rain of about {proj['season_rain_mm']} mm gives a water fit of {worst_fut:.0%} for the weakest crop in this rotation.")
+            why.append(m(lang, "why_water", mm=proj["season_rain_mm"], fit=f"{worst_fut:.0%}"))
 
         evidence = sorted({k for c in sequence for k in crops[c]["sources"]})
         gaps: list[str] = []
         if mean_conf < 0.6:
-            gaps.append(f"Season history confidence is only {mean_conf:.0%}; confirm past crops with the farmer.")
+            gaps.append(m(lang, "gap_confidence", pct=f"{mean_conf:.0%}"))
         if obs_rain is None:
-            gaps.append("No rainfall record ingested for this plot yet.")
+            gaps.append(m(lang, "gap_no_rain"))
         if legume:
-            gaps.append("Legume grain sale price is not yet in the model; only fertilizer saving and maize gain are counted.")
+            gaps.append(m(lang, "gap_legume_price"))
         if not plot.get("coords_verified"):
-            gaps.append("Plot coordinates are approximate and have not been checked against a real field boundary.")
+            gaps.append(m(lang, "gap_coords"))
 
         risks: list[str] = []
         if legume and zone["id"] == "sudan_savanna":
-            risks.append("In the drier Sudan savanna, published nitrogen gains from legumes are small (6 to 14 kg N/ha).")
+            risks.append(m(lang, "risk_sudan"))
         if legume:
-            risks.append("Legumes need enough phosphorus to fix nitrogen; check soil P and seed inoculation locally.")
-            risks.append("One season of rotation may not cut Striga where infestation is very heavy; plan two seasons.")
-            risks.append("Check seed availability and a buyer for the legume harvest before committing.")
+            risks.append(m(lang, "risk_phosphorus"))
+            risks.append(m(lang, "risk_striga"))
+            risks.append(m(lang, "risk_seed"))
         for c, f in fits.items():
             if f["water_fit_2040s"] is not None and f["water_fit_2040s"] < 0.5:
-                risks.append(f"{crops[c]['label']['en']} may be short of water in drier years by the 2040s.")
+                risks.append(m(lang, "risk_water", crop=label(c)))
         if heat > 0.1:
-            risks.append("More very hot days are projected; heat-sensitive maize may need adapted varieties or earlier planting.")
+            risks.append(m(lang, "risk_heat"))
         if is_current and cereal_run >= 3:
-            risks.append("Continuing the same cereal risks further yield decline and rising fertilizer needs.")
+            risks.append(m(lang, "risk_same_cereal"))
 
         return {
             "id": rid,
             "is_current": is_current,
             "sequence": sequence,
-            "sequence_labels": [crops[c]["label"].get(lang, crops[c]["label"]["en"]) for c in sequence],
+            "sequence_labels": [label(c) for c in sequence],
             "score": score,
             "why": why,
             "evidence": [{"id": k, "text": sources[k]} for k in evidence],
@@ -195,5 +196,5 @@ def compare(
             "maize_ngn_per_bag": prices.maize_ngn_per_bag,
             "baseline_maize_t_ha": prices.baseline_maize_t_ha,
         },
-        "disclaimer": "Rotawise supports farmer and extension agent judgment. It does not replace on-farm advice.",
+        "disclaimer": m(lang, "disclaimer"),
     }

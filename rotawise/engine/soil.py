@@ -6,6 +6,7 @@ from itertools import combinations
 from statistics import median
 from typing import Any
 
+from ..messages import m
 from .phenology import Season
 
 
@@ -27,7 +28,8 @@ def _deficit(value: float, low: float) -> float:
 
 
 def fatigue_score(
-    seasons: list[Season], soil: dict[str, Any] | None, cereal_run: int, cfg: dict[str, Any]
+    seasons: list[Season], soil: dict[str, Any] | None, cereal_run: int, cfg: dict[str, Any],
+    lang: str = "en",
 ) -> dict[str, Any]:
     s_cfg = cfg["soil"]
     w = s_cfg["fatigue_weights"]
@@ -44,7 +46,7 @@ def fatigue_score(
         "id": "cereal_run",
         "value": cereal_run,
         "contribution": round(100 * w["cereal_run"] * run_part, 1),
-        "text": f"{cereal_run} cereal-like season(s) in a row on this plot",
+        "text": m(lang, "drv_cereal_run", n=cereal_run),
     })
 
     # 2. Productivity trend: peak NDVI across cropped seasons.
@@ -65,12 +67,12 @@ def fatigue_score(
             "id": "productivity_trend",
             "value": round(slope, 4),
             "contribution": round(100 * w["productivity_trend"] * trend_part, 1),
-            "text": f"Peak greenness changed by about {pct:+.0f}% over {len(pts)} cropped seasons",
+            "text": m(lang, "drv_trend", pct=f"{pct:+.0f}%", n=len(pts)),
         })
     else:
-        gaps.append("Fewer than 4 cropped seasons with clear imagery, so no productivity trend.")
+        gaps.append(m(lang, "gap_trend"))
 
-    # 3-5. iSDAsoil properties.
+    # 3-5. SoilGrids properties.
     if soil:
         oc = soil.get("organic_carbon_g_kg")
         if oc is not None:
@@ -80,7 +82,7 @@ def fatigue_score(
             drivers.append({
                 "id": "organic_carbon", "value": round(oc, 2),
                 "contribution": round(100 * w["organic_carbon"] * part, 1),
-                "text": f"Soil organic carbon {oc:.1f} g/kg (low below {s_cfg['organic_carbon_low_g_kg']:.0f})",
+                "text": m(lang, "drv_oc", v=f"{oc:.1f}", low=f"{s_cfg['organic_carbon_low_g_kg']:.0f}"),
             })
         n = soil.get("nitrogen_total_g_kg")
         if n is not None:
@@ -90,7 +92,7 @@ def fatigue_score(
             drivers.append({
                 "id": "nitrogen", "value": round(n, 2),
                 "contribution": round(100 * w["nitrogen"] * part, 1),
-                "text": f"Total nitrogen {n:.2f} g/kg (low below {s_cfg['nitrogen_total_low_g_kg']:.1f})",
+                "text": m(lang, "drv_n", v=f"{n:.2f}", low=f"{s_cfg['nitrogen_total_low_g_kg']:.1f}"),
             })
         ph = soil.get("ph")
         if ph is not None:
@@ -102,10 +104,10 @@ def fatigue_score(
             drivers.append({
                 "id": "ph", "value": round(ph, 2),
                 "contribution": round(100 * w["ph"] * part, 1),
-                "text": f"Soil pH {ph:.1f} (comfortable range {lo} to {hi})",
+                "text": m(lang, "drv_ph", v=f"{ph:.1f}", lo=lo, hi=hi),
             })
     else:
-        gaps.append("No soil data for this plot yet.")
+        gaps.append(m(lang, "gap_soil"))
 
     value = round(100 * score / total_w) if total_w else None
     level = None
@@ -114,6 +116,7 @@ def fatigue_score(
     return {
         "score": value,
         "level": level,
+        "level_label": m(lang, f"level_{level}") if level else None,
         "drivers": sorted(drivers, key=lambda d: -d["contribution"]),
         "information_gaps": gaps,
         "weights_used": round(total_w, 2),

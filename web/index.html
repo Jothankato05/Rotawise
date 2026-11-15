@@ -20,7 +20,7 @@
       </svg>
       <div>
         <h1>Rotawise</h1>
-        <p class="tag">Field memory from NASA satellites</p>
+        <p class="tag" data-i18n="tag">Field memory from NASA satellites</p>
       </div>
     </div>
     <div class="controls">
@@ -29,12 +29,12 @@
         <button type="button" data-lang="ha" aria-pressed="false">Hausa</button>
       </div>
       <details class="prices">
-        <summary>Market prices</summary>
+        <summary data-i18n="prices">Market prices</summary>
         <form id="priceForm">
-          <label>Urea, ₦ per 50 kg bag <input type="number" name="urea_price" min="1000" step="500" inputmode="numeric"></label>
-          <label>Maize, ₦ per 100 kg bag <input type="number" name="maize_price" min="1000" step="500" inputmode="numeric"></label>
-          <label>Baseline maize yield, t/ha <input type="number" name="baseline_yield" min="0.2" max="15" step="0.1"></label>
-          <button type="submit">Update</button>
+          <label><span data-i18n="urea">Urea, ₦ per 50 kg bag</span> <input type="number" name="urea_price" min="1000" step="500" inputmode="numeric"></label>
+          <label><span data-i18n="maize">Maize, ₦ per 100 kg bag</span> <input type="number" name="maize_price" min="1000" step="500" inputmode="numeric"></label>
+          <label><span data-i18n="yield">Baseline maize yield, t/ha</span> <input type="number" name="baseline_yield" min="0.2" max="15" step="0.1"></label>
+          <button type="submit" data-i18n="update">Update</button>
         </form>
       </details>
     </div>
@@ -42,14 +42,14 @@
 
   <main class="layout">
     <aside class="farms" aria-label="Pilot farms">
-      <h2>Pilot farms</h2>
+      <h2 data-i18n="farms">Pilot farms</h2>
       <ul id="farmList"></ul>
-      <p class="fine">Each pilot point is a cropland block confirmed on ESA WorldCover.</p>
+      <p class="fine" data-i18n="farmsNote">Each pilot point is a cropland block confirmed on ESA WorldCover.</p>
     </aside>
 
     <section class="mapwrap" aria-label="Map">
       <div id="map" role="img" aria-label="Map of pilot farms"></div>
-      <label class="layer-toggle"><input type="checkbox" id="gibsToggle"> NASA MODIS true colour (GIBS)</label>
+      <label class="layer-toggle"><input type="checkbox" id="gibsToggle"> <span data-i18n="gibs">NASA MODIS true colour (GIBS)</span></label>
     </section>
 
     <section class="detail" id="detail" aria-live="polite">
@@ -64,21 +64,21 @@
     <div class="phone">
       <div class="screen" id="ussdScreen">Dial *384*7726# to start</div>
       <form id="ussdForm" class="keypad">
-        <input id="ussdInput" autocomplete="off" inputmode="numeric" aria-label="USSD reply" placeholder="Reply">
-        <button type="submit">Send</button>
-        <button type="button" id="ussdDial">Dial</button>
+        <input id="ussdInput" autocomplete="off" inputmode="numeric" aria-label="USSD reply" placeholder="Reply" data-i18n-ph="reply">
+        <button type="submit" data-i18n="send">Send</button>
+        <button type="button" id="ussdDial" data-i18n="dial">Dial</button>
       </form>
     </div>
     <div class="ussd-copy">
-      <h2>Works on any phone</h2>
-      <p>Farmers get the same advice over USSD in English or Hausa, with no smartphone and no data bundle. This simulator calls the live Rotawise USSD endpoint in the Africa's Talking format.</p>
-      <p class="fine">Short code shown is a placeholder until a code is leased.</p>
+      <h2 data-i18n="anyPhone">Works on any phone</h2>
+      <p data-i18n="ussdBody">Farmers get the same advice over USSD in English or Hausa, with no smartphone and no data bundle. This simulator calls the live Rotawise USSD endpoint in the Africa's Talking format.</p>
+      <p class="fine" data-i18n="ussdNote">Short code shown is a placeholder until a code is leased.</p>
     </div>
   </section>
 
   <footer class="foot">
-    <p>Open source (Apache 2.0). Built for the 2026 NASA Space Apps Challenge, Field Shift. Data: NASA HLS, NASA POWER, NASA NEX-GDDP-CMIP6; ESA WorldCover (CC BY 4.0); ISRIC SoilGrids (CC BY 4.0). Map © OpenStreetMap contributors.</p>
-    <p><a href="privacy.html">Privacy policy</a> · <a href="/api/docs">API</a> · Rotawise supports farmer judgment and does not replace on-farm advice.</p>
+    <p data-i18n="footA">Open source (Apache 2.0). Built for the 2026 NASA Space Apps Challenge, Field Shift. Data: NASA HLS, NASA POWER, NASA NEX-GDDP-CMIP6; ESA WorldCover (CC BY 4.0); ISRIC SoilGrids (CC BY 4.0). Map © OpenStreetMap contributors.</p>
+    <p><a href="privacy.html" data-i18n="privacy">Privacy policy</a> · <a href="/api/docs">API</a> · <span data-i18n="footB">Rotawise supports farmer judgment and does not replace on-farm advice.</span></p>
   </footer>
 
   <script src="vendor/maplibre-gl.js"></script>

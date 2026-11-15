@@ -40,7 +40,7 @@ def analyze(plot_id: str, prices: Prices | None = None, lang: str = "en") -> dic
     seasons = field_memory(data.get("ndvi") or [], cfg["phenology"])
     current = current_rotation_label(seasons)
     memory = {"seasons": [s.to_dict() for s in seasons], "current": current}
-    fatigue = fatigue_score(seasons, data.get("soil"), current["cereal_run"], cfg)
+    fatigue = fatigue_score(seasons, data.get("soil"), current["cereal_run"], cfg, lang)
     clim = climate_mod.summarize(data.get("climate"))
     rot = compare(meta, memory, fatigue, clim, cfg, prices or default_prices(), lang)
 

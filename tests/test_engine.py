@@ -102,3 +102,18 @@ def test_rain_outlier_years_are_excluded():
     s = summarize({"observed": obs})
     assert s["excluded_years"] == [2018, 2021]
     assert s["observed"]["season_rain_mm_median"] == 965
+
+
+def test_hausa_messages_cover_every_key():
+    from rotawise.messages import MSG
+    assert set(MSG["en"]) == set(MSG["ha"])
+
+
+def test_hausa_explanations_are_translated():
+    from rotawise.engine import analyze
+    from rotawise.messages import MSG
+    r = analyze("101", lang="ha")
+    english = set(MSG["en"].values())
+    texts = [t for o in r["rotations"]["options"] for t in o["why"] + o["information_gaps"] + o["risks_for_local_review"]]
+    texts += [d["text"] for d in r["soil"]["fatigue"]["drivers"]] + [r["rotations"]["disclaimer"], r["rotations"]["zone"]["label"]]
+    assert texts and not any(t in english for t in texts)
